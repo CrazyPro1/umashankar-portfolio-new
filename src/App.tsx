@@ -11,8 +11,9 @@ import { Footer } from './components/Footer';
 import { ResumeViewerModal } from './components/ResumeViewerModal';
 import { PrintableResume } from './components/PrintableResume';
 import { PhotoLocationModal } from './components/PhotoLocationModal';
+import { AIChatbotModal } from './components/AIChatbotModal';
 import { useUserProfile } from './utils/useUserProfile';
-import { downloadResumePdf } from './utils/generateResumePdf';
+import { downloadResumePdf, printResumePdf } from './utils/generateResumePdf';
 
 export default function App() {
   const [resumeModalOpen, setResumeModalOpen] = useState<boolean>(false);
@@ -36,16 +37,12 @@ export default function App() {
       downloadResumePdf(currentLocation);
     } catch (err) {
       console.error('Direct PDF generation error:', err);
-      window.print();
+      printResumePdf(currentLocation);
     }
   };
 
   const handlePrintResume = () => {
-    try {
-      window.print();
-    } catch {
-      downloadResumePdf(currentLocation);
-    }
+    printResumePdf(currentLocation);
   };
 
   return (
@@ -127,6 +124,9 @@ export default function App() {
 
       {/* Dedicated Print-Only Resume for window.print() */}
       <PrintableResume currentLocation={currentLocation} />
+
+      {/* AI HR & Recruiter Chatbot Assistant */}
+      <AIChatbotModal onDownloadPdf={handleDownloadPdf} />
 
     </div>
   );

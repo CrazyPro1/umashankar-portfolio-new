@@ -131,7 +131,7 @@ export const Hero: React.FC<HeroProps> = ({
               <button
                 onClick={onPrintResume}
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#e3a857] hover:bg-[#eeb86c] text-[#181205] text-[0.92rem] font-semibold rounded-[2px] transition-colors shadow-2xs cursor-pointer"
-                title="Download 2-Page ATS Formatted Resume (PDF)"
+                title="Download 2-Page Executive Resume (PDF)"
               >
                 <Download className="w-4 h-4 text-[#181205]" />
                 <span>Download Resume</span>

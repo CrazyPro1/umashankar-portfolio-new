@@ -19,7 +19,7 @@ export const PrintableResume: React.FC<PrintableResumeProps> = ({ currentLocatio
             {PERSONAL_INFO.name}
           </h1>
           <div className="text-sm font-bold text-gray-800 mt-0.5">
-            {PERSONAL_INFO.targetTitle} (Current Title: {PERSONAL_INFO.currentTitle})
+            {PERSONAL_INFO.targetTitle} • QA Engineering Architect (5+ Years Experience)
           </div>
           <div className="text-xs text-gray-700 mt-1 flex flex-wrap gap-x-4">
             <span>Phone: {PERSONAL_INFO.phone}</span>
@@ -133,6 +133,21 @@ export const PrintableResume: React.FC<PrintableResumeProps> = ({ currentLocatio
           ))}
         </div>
 
+        {/* Languages Known */}
+        <div className="mb-4">
+          <h2 className="text-xs font-bold uppercase tracking-wider border-b border-black pb-0.5 mb-1.5">
+            Languages Known
+          </h2>
+          <div className="grid grid-cols-2 gap-4 text-xs text-gray-900">
+            <div>
+              <strong>English:</strong> Professional Working Proficiency (Fluent) — Technical documentation, stakeholder management, executive sprint sign-offs, and team mentorship.
+            </div>
+            <div>
+              <strong>Hindi:</strong> Native / Full Bilingual Proficiency — Native fluency in verbal and written communication.
+            </div>
+          </div>
+        </div>
+
         {/* Education & Certifications */}
         <div>
           <h2 className="text-xs font-bold uppercase tracking-wider border-b border-black pb-0.5 mb-1.5">
@@ -141,7 +156,7 @@ export const PrintableResume: React.FC<PrintableResumeProps> = ({ currentLocatio
           <ul className="list-disc pl-4 text-xs space-y-0.5 text-gray-900">
             <li><strong>Bachelor of Technology (B.Tech)</strong> in Computer Science | West Bengal University of Technology (2017 - 2021) | GPA: 8 / 10</li>
             <li>Certified Automation Architect & Advanced Java / Python Test Engineering</li>
-            <li>Languages: English (Fluent), Hindi (Fluent), German (Basics)</li>
+            <li>GenAI Quality Evaluation & Prompt Regression Testing Specialist</li>
           </ul>
         </div>
       </div>

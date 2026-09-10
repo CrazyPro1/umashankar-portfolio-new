@@ -2,10 +2,13 @@ import React from 'react';
 import { 
   X, 
   Printer, 
-  Lock,
-  Download
+  Download, 
+  Award, 
+  CheckCircle2, 
+  ShieldCheck,
+  Briefcase
 } from 'lucide-react';
-import { PERSONAL_INFO, EXPERIENCES, PROJECTS } from '../data/resumeData';
+import { PERSONAL_INFO, EXPERIENCES, PROJECTS, LANGUAGES } from '../data/resumeData';
 
 interface ResumeViewerModalProps {
   isOpen: boolean;
@@ -49,16 +52,21 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
               <h3 className="text-base sm:text-lg font-bold text-[#0F172A] truncate">
                 {PERSONAL_INFO.name} — Lead SDET Resume
               </h3>
-              <span className="hidden xs:inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">
-                Lead SDET Profile
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">
+                <ShieldCheck className="w-3 h-3 text-[#059669]" />
+                Verified Candidate Profile
               </span>
-              <span className="inline-flex items-center gap-1 text-[11px] text-[#64748B] bg-[#F1F5F9] px-2 py-0.5 rounded-full">
-                <Lock className="w-3 h-3 text-[#64748B]" />
-                View-Only
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[#EFF6FF] text-[#1D4ED8] border border-[#BFDBFE]">
+                <Award className="w-3 h-3 text-[#2563EB]" />
+                5+ Years Experience
+              </span>
+              <span className="hidden md:inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">
+                <Briefcase className="w-3 h-3 text-[#B45309]" />
+                Senior SDET · Freecharge
               </span>
             </div>
             <p className="text-xs text-[#64748B] mt-0.5 truncate sm:whitespace-normal">
-              Standard 2-page executive format for engineering hiring managers & recruiters
+              Executive 2-Page Format • QA Test Architecture &amp; Release Leadership
             </p>
           </div>
 
@@ -66,8 +74,8 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
             {/* Primary Action: Direct Download PDF */}
             <button
               onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0D766E] text-white hover:bg-[#115E59] font-semibold text-xs shadow-xs transition-colors min-h-[38px]"
-              title="Directly download 2-page PDF file"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0D766E] text-white hover:bg-[#115E59] font-semibold text-xs shadow-xs transition-colors min-h-[38px] cursor-pointer"
+              title="Download 2-page PDF file"
             >
               <Download className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Download PDF (2-Page)</span>
@@ -77,7 +85,7 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
             {/* Secondary Action: Print */}
             <button
               onClick={onPrint}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-[#CBD5E1] text-[#334155] hover:bg-[#F1F5F9] font-semibold text-xs transition-colors min-h-[38px]"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white border border-[#CBD5E1] text-[#334155] hover:bg-[#F1F5F9] font-semibold text-xs transition-colors min-h-[38px] cursor-pointer"
               title="Print resume or save via browser print"
             >
               <Printer className="w-3.5 h-3.5" />
@@ -87,7 +95,7 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-[#F1F5F9] transition-colors min-w-[38px] min-h-[38px] flex items-center justify-center"
+              className="p-2 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-[#F1F5F9] transition-colors min-w-[38px] min-h-[38px] flex items-center justify-center cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -102,24 +110,38 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
             
             {/* Resume Header */}
             <div className="border-b-2 border-[#0F172A] pb-5">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">
-                {PERSONAL_INFO.name}
-              </h1>
-              <p className="text-sm sm:text-base font-bold text-[#0D766E] mt-0.5">
-                {PERSONAL_INFO.targetTitle} <span className="text-xs text-[#64748B] font-normal">(Current: {PERSONAL_INFO.currentTitle})</span>
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">
+                  {PERSONAL_INFO.name}
+                </h1>
+                <span className="inline-flex items-center gap-1 text-xs font-bold text-[#0D766E] bg-[#F0FDFA] px-2.5 py-1 rounded-md border border-[#99F6E4]">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  5+ Years Total Experience
+                </span>
+              </div>
+              <p className="text-sm sm:text-base font-bold text-[#0D766E] mt-1">
+                {PERSONAL_INFO.targetTitle} • QA Engineering Architect <span className="text-xs text-[#64748B] font-normal">(Current: {PERSONAL_INFO.currentTitle} & QA Release Gatekeeper)</span>
               </p>
               <div className="mt-2 text-xs text-[#475569] flex flex-wrap items-center gap-x-4 gap-y-1">
-                <span>Phone: <strong className="text-[#0F172A]">{PERSONAL_INFO.phone}</strong></span>
+                <a 
+                  href="https://api.whatsapp.com/send?phone=918299867994&text=Hi%20Umashankar,%20I%20reviewed%20your%20Lead%20SDET%20resume%20and%20would%20like%20to%20connect." 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#0D766E] hover:text-[#0f766e] hover:underline font-semibold inline-flex items-center gap-1"
+                >
+                  <span>WhatsApp: Connect Directly ↗</span>
+                </a>
                 <span>Email: <strong className="text-[#0F172A]">{PERSONAL_INFO.email}</strong></span>
                 <span>Location: <strong className="text-[#0F172A]">{currentLocation || PERSONAL_INFO.location}</strong></span>
-                <span>LinkedIn: <strong className="text-[#0F172A]">{PERSONAL_INFO.linkedin}</strong></span>
+                <span>LinkedIn: <strong className="text-[#0F172A]">{PERSONAL_INFO.linkedin.replace('https://', '')}</strong></span>
+                <span>GitHub: <strong className="text-[#0F172A]">{PERSONAL_INFO.github.replace('https://', '')}</strong></span>
               </div>
             </div>
 
             {/* Professional Summary */}
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-[#0F172A] border-b border-[#E2E8F0] pb-1 mb-2.5">
-                Professional Summary
+                Executive Professional Summary
               </h2>
               <p className="text-xs leading-relaxed text-[#334155]">
                 {PERSONAL_INFO.summary}
@@ -134,19 +156,19 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-[#334155]">
                 <div>
                   <strong className="text-[#0F172A]">AI & GenAI Testing:</strong>{' '}
-                  GenAI Response Validation, Groundedness & Hallucination Testing, RAG Pipeline Evaluation, Prompt Regression, Spring AI, pgvector, Gemini API, Qwen LLM, Prompt Injection Guards.
+                  RAG Pipeline Testing, Semantic Groundedness Scoring, Hallucination Prevention, Prompt Regression Suites, Spring AI, pgvector, Gemini & Qwen LLM Evaluation, Cosine Similarity Thresholds (&gt;0.85).
                 </div>
                 <div>
                   <strong className="text-[#0F172A]">Automation Frameworks:</strong>{' '}
-                  Playwright, Selenium WebDriver, RestAssured, Testcontainers, JUnit 5, TestNG, PyTest, Page Object Model, Screenplay Pattern, Parallel Docker Grids.
+                  Java 21, Spring Boot, Playwright, Selenium WebDriver, REST Assured, Testcontainers, JUnit 5, TestNG, PyTest, Page Object Model, Factory & Singleton Patterns.
                 </div>
                 <div>
-                  <strong className="text-[#0F172A]">Technical Leadership:</strong>{' '}
-                  Mentored 4 engineers, Automation Code Reviews, Sole QA Release Sign-Off Authority, Test Strategy, Shift-Left Quality Gates.
+                  <strong className="text-[#0F172A]">Technical Leadership & Governance:</strong>{' '}
+                  Sole QA Release Sign-Off Authority (14+ Microservices), Zero-Defect Escapes (18+ Months), Mentoring 4+ Engineers, Automation PR Reviews, Shift-Left Quality Gates.
                 </div>
                 <div>
-                  <strong className="text-[#0F172A]">CI/CD & DevOps:</strong>{' '}
-                  Docker, Jenkins, GitHub Actions, Linux/Bash, PostgreSQL, JMeter, k6, Allure Reporting, SonarQube.
+                  <strong className="text-[#0F172A]">CI/CD & Cloud Infrastructure:</strong>{' '}
+                  Docker Containerization, Kubernetes (EKS), AWS (EC2, EKS, S3), Jenkins Pipeline As Code, GitHub Actions, Linux/Bash, PostgreSQL, JMeter, BrowserStack.
                 </div>
               </div>
             </div>
@@ -190,7 +212,7 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
             {/* Key Engineering Projects */}
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-[#0F172A] border-b border-[#E2E8F0] pb-1 mb-3">
-                Featured Engineering Architectures & Projects
+                Featured Engineering Architectures & GenAI Projects
               </h2>
 
               <div className="space-y-4">
@@ -218,19 +240,41 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
               </div>
             </div>
 
+            {/* Languages Known (Explicitly Added) */}
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-[#0F172A] border-b border-[#E2E8F0] pb-1 mb-2.5">
+                Languages Known
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {LANGUAGES.map((lang) => (
+                  <div key={lang.name} className="p-3 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-xs text-[#0F172A]">{lang.name}</span>
+                      <span className="text-[10px] font-semibold text-[#0D766E] px-2 py-0.5 rounded-full bg-[#CCFBF1] border border-[#99F6E4]">
+                        {lang.level}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#475569] mt-1 leading-relaxed">
+                      {lang.proficiencyNote}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Education & Certifications */}
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-[#0F172A] border-b border-[#E2E8F0] pb-1 mb-2.5">
-                Education & Certifications
+                Education & Professional Certifications
               </h2>
               <div className="flex justify-between items-baseline text-xs text-[#334155]">
                 <div>
                   <strong className="text-[#0F172A]">Bachelor of Technology (B.Tech)</strong> in Computer Science | West Bengal University of Technology (2017 - 2021)
                 </div>
-                <span className="text-[#0D766E] font-semibold">GPA: 8 / 10</span>
+                <span className="text-[#0D766E] font-semibold">GPA: 8.0 / 10</span>
               </div>
               <div className="mt-1.5 text-xs text-[#475569]">
-                <span>Languages: English (Fluent), Hindi (Fluent), German (Basics)</span>
+                <span>Certified Automation Test Architect • Advanced Java / Python Test Engineering • GenAI & LLM Quality Engineering</span>
               </div>
             </div>
 
@@ -240,16 +284,32 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
 
         {/* Modal Bottom Bar */}
         <div className="bg-[#F8FAFC] px-4 py-3 sm:px-6 sm:py-3.5 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-2.5 text-xs">
-          <span className="text-[#64748B] text-center sm:text-left text-[11px] sm:text-xs">
-            Standard 2-page print format for A4 / Letter PDF
-          </span>
-          <button
-            onClick={onPrint}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#0D766E] text-white hover:bg-[#115E59] font-semibold text-xs shadow-xs transition-colors min-h-[42px]"
-          >
-            <Printer className="w-3.5 h-3.5" />
-            <span>Download PDF</span>
-          </button>
+          <div className="flex items-center gap-3 text-[#64748B] text-center sm:text-left text-[11px] sm:text-xs">
+            <span className="inline-flex items-center gap-1 font-semibold text-[#047857]">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Verified 5+ Years Lead SDET Profile
+            </span>
+            <span>•</span>
+            <span>Standard 2-Page Executive PDF</span>
+          </div>
+
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              onClick={onPrint}
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-white border border-[#CBD5E1] text-[#334155] hover:bg-[#F1F5F9] font-semibold text-xs transition-colors min-h-[42px] cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5 text-[#64748B]" />
+              <span>Print Resume</span>
+            </button>
+
+            <button
+              onClick={handleDownload}
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#0D766E] text-white hover:bg-[#115E59] font-semibold text-xs shadow-xs transition-colors min-h-[42px] cursor-pointer"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download PDF</span>
+            </button>
+          </div>
         </div>
 
       </div>

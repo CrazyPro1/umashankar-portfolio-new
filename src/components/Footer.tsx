@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, FileText, ExternalLink, ArrowUp } from 'lucide-react';
+import { Download, FileText, ExternalLink, ArrowUp, MessageCircle } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
 interface FooterProps {
@@ -40,7 +40,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.85rem] font-medium text-[#e8ecef] border border-[rgba(232,236,239,0.22)] rounded-[2px] hover:border-[#e3a857] hover:bg-[rgba(227,168,87,0.1)] transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.85rem] font-medium text-[#e8ecef] border border-[rgba(232,236,239,0.22)] rounded-[2px] hover:border-[#e3a857] hover:bg-[rgba(227,168,87,0.1)] transition-colors cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5 text-[#e3a857]" />
               <span>View Resume</span>
@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({
 
             <button
               onClick={onPrintResume}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.85rem] font-semibold text-[#181205] bg-[#e3a857] rounded-[2px] hover:bg-[#eeb86c] transition-colors shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.85rem] font-semibold text-[#181205] bg-[#e3a857] rounded-[2px] hover:bg-[#eeb86c] transition-colors shadow-2xs cursor-pointer"
               title="Directly download 2-page PDF resume"
             >
               <Download className="w-3.5 h-3.5 text-[#181205]" />
@@ -57,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({
 
             <button
               onClick={scrollToTop}
-              className="p-2 border border-[rgba(232,236,239,0.15)] rounded-[2px] text-[#9ba7b4] hover:text-[#e8ecef] hover:border-[#e3a857] transition-colors"
+              className="p-2 border border-[rgba(232,236,239,0.15)] rounded-[2px] text-[#9ba7b4] hover:text-[#e8ecef] hover:border-[#e3a857] transition-colors cursor-pointer"
               title="Back to top"
             >
               <ArrowUp className="w-4 h-4" />
@@ -80,7 +80,16 @@ export const Footer: React.FC<FooterProps> = ({
               </button>
             )}
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center gap-5">
+            <a
+              href="https://api.whatsapp.com/send?phone=918299867994&text=Hi%20Umashankar,%20I%20would%20like%20to%20connect%20regarding%20a%20Lead%20SDET%20opportunity."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#34D399] hover:text-[#10B981] transition-colors inline-flex items-center gap-1 font-medium"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>WhatsApp</span>
+            </a>
             <a
               href={PERSONAL_INFO.linkedin}
               target="_blank"
@@ -91,8 +100,11 @@ export const Footer: React.FC<FooterProps> = ({
               <ExternalLink className="w-3 h-3 text-[#6b7683]" />
             </a>
             <a
-              href={`mailto:${PERSONAL_INFO.email}`}
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PERSONAL_INFO.email)}&su=Lead%20SDET%20Inquiry`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-[#e3a857] transition-colors font-mono"
+              title="Open in Gmail"
             >
               {PERSONAL_INFO.email}
             </a>

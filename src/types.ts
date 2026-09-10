@@ -55,6 +55,12 @@ export interface ATSKeyword {
   relevanceExplanation: string;
 }
 
+export interface LanguageItem {
+  name: string;
+  level: string;
+  proficiencyNote: string;
+}
+
 export interface TestExecutionStep {
   name: string;
   type: 'RAG_EVAL' | 'API_ASSERT' | 'CONTAINER_SETUP' | 'GROUNDEDNESS' | 'E2E_UI';

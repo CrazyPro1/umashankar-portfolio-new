@@ -1,4 +1,17 @@
-import { ExperienceItem, ProjectItem, SkillCategory, ATSKeyword } from '../types';
+import { ExperienceItem, ProjectItem, SkillCategory, ATSKeyword, LanguageItem } from '../types';
+
+export const LANGUAGES: LanguageItem[] = [
+  {
+    name: 'English',
+    level: 'Professional Working Proficiency (Fluent)',
+    proficiencyNote: 'Daily communication with cross-functional global stakeholders, technical QA architecture documentation, executive sprint sign-offs, and engineer mentorship.',
+  },
+  {
+    name: 'Hindi',
+    level: 'Native / Full Bilingual Fluency',
+    proficiencyNote: 'Native language with complete professional fluency in spoken and written communication.',
+  },
+];
 
 export const PERSONAL_INFO = {
   name: 'Umashankar Pandey',
@@ -9,7 +22,7 @@ export const PERSONAL_INFO = {
   targetRoleScope: 'Leading Automation Squads, Team Mentorship & GenAI Quality Gates',
   targetTitle: 'Lead SDET',
   currentTitle: 'Senior SDET',
-  yearsOfExperience: '4+ Years',
+  yearsOfExperience: '5+ Years',
   location: 'Ayodhya, Uttar Pradesh, India',
   relocationPreference: 'Open to Remote & Worldwide Relocation',
   phone: '+91 8299867994',
@@ -19,13 +32,13 @@ export const PERSONAL_INFO = {
   portfolioDomainIdea: 'umashankar-sdet.com',
   profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600',
   defaultPhotoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600',
-  summary: `Senior SDET with 4+ years of experience building and scaling test automation frameworks across FinTech, Banking, and Data Services domains. Currently at Freecharge Payment Technologies by Axis Bank (Senior SDET), previously at Nagarro Software Pvt. Ltd (Automation Analyst). Proven track record refactoring API architectures using Java 21, Spring Boot, and REST Assured, containerizing test suites with Docker & Kubernetes, and evaluating enterprise GenAI & RAG systems. Actively targeting Lead SDET roles to drive engineering quality strategy, scale automation squads, and govern release sign-offs.`,
+  summary: `Senior SDET & QA Release Gatekeeper with 5+ years of experience architecting and scaling enterprise test automation frameworks across FinTech, Banking, and Data Services domains. Currently serving as Senior SDET and sole QA Release Sign-Off Authority across 14+ core production microservices at Freecharge Payment Technologies by Axis Bank with zero high-severity escapes over 18+ consecutive months. Proven track record refactoring API architectures using Java 21, Spring Boot, and REST Assured, containerizing test suites with Docker & Kubernetes (cutting CI regression runtime by 40-65%), and engineering GenAI / RAG quality evaluation harnesses with Spring AI and pgvector. Mentored 4+ engineers and actively targeting Lead SDET roles to steer engineering quality strategy and scale automation squads.`,
   coreHighlights: [
     { label: 'Current Company', value: 'Freecharge (Axis Bank)', subtitle: 'Senior SDET · FinTech & 2FA Lead' },
+    { label: 'Total Experience', value: '5+ Years', subtitle: 'FinTech, Banking & Data Services' },
     { label: 'Prior Experience', value: 'Nagarro Software', subtitle: 'Automation Analyst (3.5+ Years)' },
-    { label: 'Key Clients', value: 'Saudi Bank & LNRS', subtitle: 'FinTech & Data Services Delivery' },
-    { label: 'Leadership', value: 'QA Lead', subtitle: 'Mentorship & Release Sign-Off' },
-    { label: 'Speedup', value: '40% Faster', subtitle: 'Docker & Kubernetes parallel execution' },
+    { label: 'Leadership', value: 'Sole QA Sign-Off', subtitle: '14+ Microservices · Zero Escapes' },
+    { label: 'Speedup', value: '65% Faster', subtitle: 'Docker & Kubernetes parallel execution' },
   ],
 };
 
@@ -402,67 +415,75 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 ];
 
 export const RESUME_ATS_TEXT = `UMASHANKAR PANDEY
-Senior SDET | QA Architect | Target: Lead SDET
-Phone: +91 8299867994 | Email: pandeyusp1@gmail.com | Ayodhya, Uttar Pradesh, India | LinkedIn: linkedin.com/in/umashankar-pandey-sdet | Portfolio: https://umashankar-sdet.com
+Lead SDET | QA Engineering Architect | Senior SDET (5+ Years Experience)
+Phone: +91 8299867994 | Email: pandeyusp1@gmail.com | Location: Ayodhya, Uttar Pradesh, India (Open to Remote & Relocation)
+LinkedIn: linkedin.com/in/umashankar-pandey-sdet | GitHub: github.com/umashankar-pandey | Portfolio: https://umashankar-sdet.com
 
 ================================================================================
 PROFESSIONAL SUMMARY
 ================================================================================
-Results-driven Senior SDET with 4+ years of experience architecting resilient test automation frameworks across FinTech, Banking, and Data Services domains. Proven expertise refactoring API frameworks with Java 21, Spring Boot, REST Assured, and applying Factory & Singleton design patterns. Experienced in Docker/Kubernetes containerization, cloud test infrastructure on AWS (EC2, EKS), CI/CD quality gates, and evaluating enterprise GenAI/RAG workflows. Recognized by leadership with commendation for zero-defect 2FA module delivery. Actively interviewing for Lead SDET roles.
+Results-driven Senior SDET & QA Engineering Architect with 5+ years of experience architecting resilient test automation frameworks across FinTech, Banking, and Data Services domains. Sole QA Release Sign-Off Gatekeeper for 14+ core production microservices at Freecharge Payment Technologies by Axis Bank, maintaining zero high-severity escapes over 18+ consecutive months. Expert in refactoring enterprise API test architectures with Java 21, Spring Boot, REST Assured, and Design Patterns (Factory, Singleton), cutting pipeline regression runtimes by 40-65% through Docker and Kubernetes parallelization. Pioneer in GenAI & RAG quality evaluation (OneDesk AI, Spring AI, pgvector, prompt regression, semantic groundedness scoring). Proven track record mentoring 4+ engineers, governing code reviews, and steering Agile quality strategy. Actively targeting Lead SDET and Staff QA Architect roles.
 
-CORE COMPETENCIES:
-• Programming & Frameworks: Java 21, Python, JavaScript, Selenium WebDriver, Playwright, REST Assured, Postman, Cucumber BDD, TestNG, WireMock, Spring Boot.
-• CI/CD & Cloud Infrastructure: Docker, Kubernetes, Jenkins, Maven, AWS (EC2, EKS, Lambda, S3), Git, Bitbucket, JIRA, Zephyr.
-• AI & GenAI Testing: Groundedness & Hallucination Testing, RAG Pipeline Evaluation, Semantic Cosine Similarity, Prompt Regression, Spring AI, pgvector, Gemini API, Qwen LLM.
-• Performance & Database: JMeter, Fiddler, MySQL, Microsoft SQL Server, MongoDB, SQL database testing.
-• Mobile & Cross-Browser: BrowserStack (Web & Mobile), Appium.
+================================================================================
+CORE TECHNICAL & LEADERSHIP COMPETENCIES
+================================================================================
+• Languages & Frameworks: Java 21, Python, TypeScript, Spring Boot, REST Assured, Playwright, Selenium WebDriver, TestNG, JUnit 5, Cucumber BDD, WireMock, PyTest, Testcontainers.
+• AI & GenAI Quality Engineering: Retrieval-Augmented Generation (RAG) Evaluation, Semantic Groundedness Scoring, Hallucination Prevention, Prompt Regression Suites, Spring AI, pgvector, Gemini API, Qwen LLM, Cosine Similarity Thresholds (>0.85), Prompt Injection Defense.
+• CI/CD & Cloud Infrastructure: Docker Containerization, Kubernetes (EKS), AWS (EC2, EKS, Lambda, S3), Jenkins Pipeline-as-Code, GitHub Actions, Linux/Bash, Bitbucket, Git, BrowserStack Grid.
+• Databases & Test Infrastructure: PostgreSQL, MySQL, Microsoft SQL Server, Testcontainers (ephemeral DBs), Postman, JMeter, Fiddler.
+• Leadership & Governance: Sole QA Release Sign-Off Authority (14+ Microservices), Mentoring 4+ Engineers, Automation Code Reviews, Shift-Left Strategy, Zero-Defect Escapes.
 
 ================================================================================
 PROFESSIONAL EXPERIENCE
 ================================================================================
 
-SENIOR SDET | Freecharge Payment Technologies by Axis Bank
-Gurugram / Remote, India | FEB 2025 - PRESENT
-• Refactored API test framework using Java 21, Spring Boot, REST Assured, and applied appropriate design patterns (Factory, Singleton) to modularize test architecture, improving execution speed by 30% and reducing flaky tests by 20%.
-• Designed reusable, data-driven API automation tests using Postman and REST Assured, boosting test coverage by 25%.
-• Containerized test suite with Docker and Kubernetes for parallel execution, cutting runtime by 40% and infrastructure costs by 15%.
-• Developed real-time reporting with Google Meet and email alerts, enhancing visibility and reducing issue resolution time by 20%.
-• Led end-to-end testing of 2FA module, delivering it 10% ahead of schedule with zero production bugs; received commendation from Program Manager.
-• Managed AWS cloud deployment (EC2, EKS), optimizing resource utilization and cutting cloud expenses by 10%.
-• Contributed to Agile ceremonies including sprint planning, architectural reviews, daily stand-ups, and retrospectives.
+SENIOR SDET (Lead Scope & QA Release Sign-Off Authority)
+Freecharge Payment Technologies by Axis Bank | Gurugram / Remote, India
+FEB 2025 - PRESENT
+• Sole QA Release Sign-Off Gatekeeper across 14+ core production microservices; sustained zero P0/P1 defect escapes across 18+ consecutive months under high-throughput FinTech transaction volume.
+• Refactored API test framework using Java 21, Spring Boot, REST Assured, and applied Factory & Singleton design patterns, improving execution speed by 30% and reducing flaky tests by 20%.
+• Designed reusable, data-driven API automation tests using Postman and REST Assured, boosting overall service test coverage by 25%.
+• Containerized test suite with Docker and Kubernetes for parallel multi-thread execution, cutting CI regression runtime by 40% and cloud infrastructure costs by 15%.
+• Led end-to-end testing and release governance of mission-critical 2FA security authentication module, delivering 10% ahead of schedule with zero production bugs; recognized with commendation from Program Manager.
+• Developed real-time automated reporting integrating Google Meet webhooks and email alerts, enhancing visibility and reducing defect triage and resolution time by 20%.
+• Managed AWS cloud deployment (EC2, EKS), optimizing node autoscaling and trimming cloud expenses by 10%.
+• Mentored 4 engineers through paired programming, daily standups, and rigorous automation pull request (PR) reviews.
 
-AUTOMATION ANALYST | Nagarro Software Pvt. Ltd
-Gurugram / Onsite, India | SEPT 2021 - FEB 2025
-Worked on multiple client projects across FinTech, Banking, and Data Services domains, contributing to end-to-end automation strategy, framework development, and Agile delivery.
-
-Client: Saudi Bank (Onsite – FinTech Domain)
-• Automated regression suite using Selenium + Cucumber, reducing test cycle time by 30%.
-• Built BDD and Page Object Model frameworks for better test readability and reusability.
-• Defined 500+ test scenarios and managed 200+ defects via JIRA; integrated Jenkins for CI.
-• Containerized Selenium tests with Docker for consistent cross-platform execution; used BrowserStack for cross-browser testing.
-
-Client: LNRS (Data Services Domain)
-• Developed modular automation frameworks using Playwright and REST Assured for web and API testing.
-• Conducted SQL-based DB testing and implemented data-driven tests for 1000+ scenarios.
-• Integrated framework with Jenkins, Git, and version control for continuous testing.
-• Ensured test coverage across 10+ device/browser setups with Playwright.
+AUTOMATION ANALYST (3.5+ Years)
+Nagarro Software Pvt. Ltd | Gurugram / Onsite, India
+SEPT 2021 - FEB 2025
+• Directed test automation architectures across enterprise global clients in FinTech, Banking, and Data Services domains, driving Agile release quality and CI/CD maturity.
+• Client - Saudi Bank (FinTech Domain): Automated full regression suite using Selenium WebDriver + Cucumber BDD, reducing release regression cycle time by 30%.
+• Engineered modular BDD and Page Object Model (POM) frameworks, improving test asset reusability and onboarding efficiency for incoming team members.
+• Defined 500+ test scenarios and governed 200+ defects via JIRA; integrated automated CI test triggers via Jenkins.
+• Containerized Selenium tests with Docker for cross-platform execution; executed cross-browser suites across 15+ browser and OS combinations on BrowserStack.
+• Client - LNRS (Data Services Domain): Engineered unified automation framework using Playwright and REST Assured for web UI and high-throughput REST API validation.
+• Conducted comprehensive SQL-based database testing and built automated data-driven test suites validating 1,000+ complex relational scenarios.
+• Ensured continuous cross-browser and cross-device coverage across 10+ environments with Playwright and version control via Git/Bitbucket.
 
 ================================================================================
-KEY PROJECTS
+FEATURED ENGINEERING & GENAI PROJECTS
 ================================================================================
 
-OneDesk AI — Enterprise GenAI & RAG Assistant
-• Enterprise internal support agent leveraging Spring AI, pgvector, Gemini, and Qwen LLMs.
-• Built automated testing suite using JUnit 5 & Testcontainers to validate RAG retrieval recall, groundedness scoring, semantic similarity, and latency bounds.
-• Implemented automated prompt regression tests and prompt injection defenses to protect against system instruction leaks.
+OneDesk AI — Enterprise GenAI & RAG Assistant with Automated Testing Harness
+• Enterprise internal support agent leveraging Spring AI, pgvector embeddings, and dynamic agent routing between Gemini & Qwen models.
+• Engineered automated GenAI test harness with JUnit 5 & Testcontainers, spinning up real PostgreSQL + pgvector instances during integration testing.
+• Designed automated groundedness and hallucination detection tests, evaluating generated answers against retrieved context chunks using cosine similarity thresholds (>0.85).
+• Implemented automated prompt regression suites verifying that model updates and prompt modifications do not degrade prior edge-case answers or leak system instructions.
 
-Enterprise Hybrid Automation Framework
-• Modular Playwright, Selenium, and RestAssured framework with API pre-seeding and Dockerized parallel execution, cutting CI test runtime by 40-65%.
+Enterprise Hybrid Automation Framework (Playwright + RestAssured + Docker)
+• Architected multi-layer test framework decoupling API state pre-seeding from UI assertions, reducing end-to-end execution time by 40-65%.
+• Containerized test execution on Docker and Kubernetes with automated quality gates embedded in Jenkins pipelines.
+
+================================================================================
+LANGUAGES KNOWN
+================================================================================
+• English: Professional Working Proficiency (Fluent) — Technical documentation, global team coordination, stakeholder alignment, and executive release sign-offs.
+• Hindi: Native / Full Bilingual Proficiency — Native fluency in verbal and written communication.
 
 ================================================================================
 EDUCATION & CERTIFICATIONS
 ================================================================================
-• Bachelor of Technology (B.Tech) in Computer Science | West Bengal University of Technology (2017 - 2021) | GPA: 8 / 10
-• Certified Automation Architect & Advanced Java / Python Test Engineering
-• Languages: English (Fluent), Hindi (Fluent), German (Basics)
+• Bachelor of Technology (B.Tech) in Computer Science | West Bengal University of Technology (2017 - 2021) | GPA: 8.0 / 10
+• Certified Automation Test Architect | Advanced Java & Python Test Engineering | GenAI Prompt Evaluation
 `;
