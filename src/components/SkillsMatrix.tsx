@@ -1,124 +1,64 @@
-import React, { useState } from 'react';
-import { 
-  Sparkles, 
-  Code2, 
-  ShieldCheck, 
-  Cpu, 
-  Check, 
-  Layers 
-} from 'lucide-react';
-import { SKILL_CATEGORIES } from '../data/resumeData';
+import React from 'react';
 
 export const SkillsMatrix: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Sparkles':
-        return <Sparkles className="w-4 h-4 text-[#0D766E]" />;
-      case 'Code2':
-        return <Code2 className="w-4 h-4 text-[#3B82F6]" />;
-      case 'ShieldCheck':
-        return <ShieldCheck className="w-4 h-4 text-[#059669]" />;
-      case 'Cpu':
-        return <Cpu className="w-4 h-4 text-[#7C3AED]" />;
-      default:
-        return <Layers className="w-4 h-4 text-[#0D766E]" />;
-    }
-  };
+  const skillCategories = [
+    {
+      title: 'Automation frameworks',
+      skills: ['Playwright', 'Selenium', 'RestAssured', 'Testcontainers', 'Cypress'],
+    },
+    {
+      title: 'Languages',
+      skills: ['Java 17', 'Python', 'TypeScript', 'SQL'],
+    },
+    {
+      title: 'CI/CD & infrastructure',
+      skills: ['Docker', 'Jenkins', 'GitHub Actions', 'Linux'],
+    },
+    {
+      title: 'GenAI / RAG evaluation',
+      skills: ['Spring AI', 'pgvector', 'Gemini', 'Qwen', 'Prompt regression'],
+    },
+    {
+      title: 'Test management',
+      skills: ['Jira', 'TestRail', 'Grafana', 'Allure Reports'],
+    },
+    {
+      title: 'Leadership',
+      skills: ['PR review', 'Mentoring (4 Eng)', 'Release sign-off', 'Risk reporting'],
+    },
+  ];
 
   return (
-    <section id="skills" className="py-16 bg-[#FBFBF9] border-b border-[#E5E7EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="skills" className="py-20 border-t border-[rgba(232,236,239,0.12)] bg-[#1b222c]">
+      <div className="max-w-[1120px] mx-auto px-6 sm:px-8">
         
-        {/* Header */}
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#F0FDFA] text-[#0F766E] border border-[#99F6E4] mb-3">
-            <Cpu className="w-3.5 h-3.5 text-[#0D766E]" />
-            Technical & Leadership Core Competencies
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#111827] tracking-tight">
-            Comprehensive Skills Matrix
+        {/* Section Head */}
+        <div className="flex items-baseline justify-between gap-6 mb-11 flex-wrap">
+          <h2 className="text-[clamp(1.5rem,2.4vw,2rem)] font-semibold text-[#e8ecef]">
+            Skills
           </h2>
-          <p className="mt-3 text-base text-[#4B5563] leading-relaxed">
-            Balanced expertise across cutting-edge GenAI validation, enterprise automation frameworks, 
-            team leadership, and CI/CD quality gates.
-          </p>
+          <span className="font-mono text-[#6b7683] text-[0.88rem]">04</span>
         </div>
 
-        {/* Tab Buttons */}
-        <div className="mt-8 flex flex-wrap gap-2 pb-2 border-b border-[#E5E7EB]">
-          {SKILL_CATEGORIES.map((category, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveTab(idx)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${
-                activeTab === idx
-                  ? 'bg-[#0D766E] text-white shadow-xs'
-                  : 'bg-white text-[#4B5563] hover:bg-[#F3F4F6] border border-[#E5E7EB]'
-              }`}
-            >
-              {getIcon(category.iconName)}
-              <span>{category.title}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Active Category Content */}
-        <div className="mt-6 bg-white rounded-2xl border border-[#E5E7EB] p-6 lg:p-8">
-          <div className="mb-6">
-            <h3 className="text-lg font-bold text-[#111827] flex items-center gap-2">
-              {getIcon(SKILL_CATEGORIES[activeTab].iconName)}
-              <span>{SKILL_CATEGORIES[activeTab].title}</span>
-            </h3>
-            <p className="text-xs text-[#6B7280] mt-1">
-              {SKILL_CATEGORIES[activeTab].description}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {SKILL_CATEGORIES[activeTab].skills.map((skill, idx) => (
-              <div
-                key={idx}
-                className={`p-4 rounded-xl border transition-all ${
-                  skill.isAiKeyword
-                    ? 'bg-[#F0FDFA]/60 border-[#99F6E4] hover:bg-[#F0FDFA]'
-                    : 'bg-[#F9FAFB] border-[#E5E7EB] hover:bg-white'
-                }`}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="font-bold text-xs sm:text-sm text-[#111827] flex items-center gap-1.5">
-                    {skill.isAiKeyword && (
-                      <Sparkles className="w-3.5 h-3.5 text-[#0D766E] shrink-0" />
-                    )}
-                    <span>{skill.name}</span>
-                  </div>
+        {/* Matrix Grid: 3 Columns on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[rgba(232,236,239,0.12)] border border-[rgba(232,236,239,0.12)]">
+          {skillCategories.map((cat, idx) => (
+            <div key={idx} className="bg-[#12171f] p-6 sm:p-7">
+              <h3 className="text-[0.92rem] text-[#9ba7b4] font-medium mb-3.5">
+                {cat.title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {cat.skills.map((skill, sIdx) => (
                   <span
-                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ${
-                      skill.level === 'Expert'
-                        ? 'bg-[#ECFDF5] text-[#047857]'
-                        : 'bg-[#EFF6FF] text-[#1D4ED8]'
-                    }`}
+                    key={sIdx}
+                    className="font-mono text-[0.8rem] text-[#e8ecef] border border-[rgba(232,236,239,0.22)] px-2.5 py-1 rounded-[2px] hover:border-[#e3a857] transition-colors"
                   >
-                    {skill.level}
+                    {skill}
                   </span>
-                </div>
-
-                {skill.tags && (
-                  <div className="mt-2.5 flex flex-wrap gap-1">
-                    {skill.tags.map((tag, tagIdx) => (
-                      <span
-                        key={tagIdx}
-                        className="text-[10px] px-2 py-0.5 rounded bg-white text-[#4B5563] border border-[#E5E7EB]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
       </div>

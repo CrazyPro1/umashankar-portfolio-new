@@ -1,7 +1,13 @@
 import React from 'react';
 import { PERSONAL_INFO, EXPERIENCES, PROJECTS, SKILL_CATEGORIES } from '../data/resumeData';
 
-export const PrintableResume: React.FC = () => {
+interface PrintableResumeProps {
+  currentLocation?: string;
+}
+
+export const PrintableResume: React.FC<PrintableResumeProps> = ({ currentLocation }) => {
+  const displayLocation = currentLocation || PERSONAL_INFO.location;
+
   return (
     <div className="hidden print-only text-black bg-white p-4 font-sans text-[11pt] leading-tight">
       
@@ -16,10 +22,10 @@ export const PrintableResume: React.FC = () => {
             {PERSONAL_INFO.targetTitle} (Current Title: {PERSONAL_INFO.currentTitle})
           </div>
           <div className="text-xs text-gray-700 mt-1 flex flex-wrap gap-x-4">
+            <span>Phone: {PERSONAL_INFO.phone}</span>
             <span>Email: {PERSONAL_INFO.email}</span>
-            <span>Location: {PERSONAL_INFO.location}</span>
+            <span>Location: {displayLocation}</span>
             <span>LinkedIn: {PERSONAL_INFO.linkedin}</span>
-            <span>Portfolio: https://{PERSONAL_INFO.portfolioDomainIdea}</span>
           </div>
         </div>
 
@@ -133,8 +139,9 @@ export const PrintableResume: React.FC = () => {
             Education & Certifications
           </h2>
           <ul className="list-disc pl-4 text-xs space-y-0.5 text-gray-900">
-            <li><strong>Bachelor of Technology (B.Tech)</strong> in Computer Science & Engineering</li>
-            <li>Certified Automation Architect & Advanced Java/Python Test Engineering</li>
+            <li><strong>Bachelor of Technology (B.Tech)</strong> in Computer Science | West Bengal University of Technology (2017 - 2021) | GPA: 8 / 10</li>
+            <li>Certified Automation Architect & Advanced Java / Python Test Engineering</li>
+            <li>Languages: English (Fluent), Hindi (Fluent), German (Basics)</li>
           </ul>
         </div>
       </div>

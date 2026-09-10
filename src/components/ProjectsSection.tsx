@@ -1,224 +1,96 @@
-import React, { useState } from 'react';
-import { 
-  Bot, 
-  Sparkles, 
-  Layers, 
-  Cpu, 
-  CheckCircle2, 
-  ExternalLink, 
-  Activity, 
-  ShieldCheck, 
-  Zap, 
-  ChevronRight,
-  Database,
-  Terminal
-} from 'lucide-react';
-import { PROJECTS } from '../data/resumeData';
-import { ProjectItem } from '../types';
+import React from 'react';
 
 export const ProjectsSection: React.FC = () => {
-  const [selectedProjectId, setSelectedProjectId] = useState<string>('onedesk-ai');
-
-  const selectedProject = PROJECTS.find((p) => p.id === selectedProjectId) || PROJECTS[0];
+  const caseStudies = [
+    {
+      title: "Evaluating a RAG pipeline that doesn't give the same answer twice",
+      impactNum: "OneDesk AI",
+      impactLabel: "GenAI evaluation framework",
+      problem: "OneDesk AI's retrieval-augmented pipeline had no repeatable way to catch regressions — a prompt or model change could silently degrade answer quality with nothing in CI to flag it.",
+      approach: "Built an evaluation layer scoring chunking recall and cosine similarity for retrieval, plus groundedness and hallucination-rate checks for generated output, run against Gemini and Qwen via Spring AI and gated in CI as a prompt-regression suite.",
+      impact: "Gave the team a deterministic gate for a non-deterministic system — regressions in retrieval or output quality now fail the build instead of shipping quietly."
+    },
+    {
+      title: "Cutting the CI/CD regression cycle by 65%",
+      impactNum: "65%",
+      impactLabel: "faster regression cycle",
+      problem: "The existing Playwright/Selenium suite ran sequentially, making regression the slowest step in every release and forcing releases onto a fixed, infrequent schedule.",
+      approach: "Re-architected the suite around parallelized execution using Testcontainers for isolated, reproducible environments, and wired it into CI as a merge-blocking gate.",
+      impact: "Regression cycle time dropped 65%, and release cadence stopped being bottlenecked by test runtime."
+    },
+    {
+      title: "Zero high-severity escapes across 14+ services",
+      impactNum: "0",
+      impactLabel: "high-severity production escapes",
+      problem: "As sole QA sign-off for 14+ core production microservices, any gap in release governance would surface directly as a production incident.",
+      approach: "Instituted structured release sign-off criteria, mandatory automation PR review, and risk-based test prioritization so sign-off decisions were evidence-based rather than a rubber stamp.",
+      impact: "Zero high-severity escapes to date across all 14+ services under that governance process over 18 consecutive months."
+    }
+  ];
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-b from-white via-[#F8FAFC] to-white border-b border-[#E2E8F0] relative overflow-hidden">
-      {/* Subtle ambient tech background */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-[450px] h-[300px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 border-t border-[rgba(232,236,239,0.12)] bg-[#12171f]">
+      <div className="max-w-[1120px] mx-auto px-6 sm:px-8">
         
-        {/* Header */}
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] mb-3">
-            <Bot className="w-3.5 h-3.5 text-[#059669]" />
-            Featured Engineering & Test Architectures
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#111827] tracking-tight">
-            Key Projects & Automated Test Innovations
+        {/* Section Head */}
+        <div className="flex items-baseline justify-between gap-6 mb-11 flex-wrap">
+          <h2 className="text-[clamp(1.5rem,2.4vw,2rem)] font-semibold text-[#e8ecef]">
+            Case studies
           </h2>
-          <p className="mt-3 text-base text-[#4B5563] leading-relaxed">
-            Spotlighting <strong className="text-[#111827]">OneDesk AI</strong>—an enterprise RAG agent tested with modern GenAI evaluation methodologies—alongside 
-            enterprise test frameworks that slashed regression cycle times by 65%.
-          </p>
+          <span className="font-mono text-[#6b7683] text-[0.88rem]">05</span>
         </div>
 
-        {/* Project Selector Tabs */}
-        <div className="mt-8 flex flex-wrap gap-2.5 pb-2 border-b border-[#E5E7EB]">
-          {PROJECTS.map((project) => (
-            <button
-              key={project.id}
-              onClick={() => setSelectedProjectId(project.id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold transition-all ${
-                selectedProjectId === project.id
-                  ? 'bg-[#0D766E] text-white shadow-xs'
-                  : 'bg-[#F9FAFB] text-[#4B5563] hover:bg-[#F3F4F6] hover:text-[#111827] border border-[#E5E7EB]'
-              }`}
+        {/* Case Studies List */}
+        <div className="flex flex-col">
+          {caseStudies.map((cs, idx) => (
+            <div 
+              key={idx}
+              className="py-10 first:pt-0 border-t first:border-t-0 border-[rgba(232,236,239,0.12)] grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-6 lg:gap-11"
             >
-              {project.id === 'onedesk-ai' ? (
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              ) : (
-                <Layers className="w-3.5 h-3.5" />
-              )}
-              <span>{project.title.split('—')[0]}</span>
-              {project.id === 'onedesk-ai' && (
-                <span className={`text-[10px] px-1.5 py-0.2 rounded font-semibold ${
-                  selectedProjectId === project.id ? 'bg-[#044E48] text-teal-100' : 'bg-[#E6F4EA] text-[#137333]'
-                }`}>
-                  Flagship GenAI
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Spotlight Project Details Card */}
-        <div className="mt-8 bg-[#FBFBF9] rounded-2xl border border-[#E5E7EB] p-6 lg:p-8 shadow-xs">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Left Column: Project Overview & Contributions */}
-            <div className="lg:col-span-8 space-y-6">
-              
+              {/* Left Title & Impact Num */}
               <div>
-                <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#E0F2FE] text-[#0369A1]">
-                    {selectedProject.category}
-                  </span>
-                  {selectedProject.id === 'onedesk-ai' && (
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#FEF3C7] text-[#92400E] flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" />
-                      Spring AI + pgvector + Gemini/Qwen
-                    </span>
-                  )}
-                </div>
-                
-                <h3 className="text-xl sm:text-2xl font-bold text-[#111827]">
-                  {selectedProject.title}
+                <h3 className="text-[1.28rem] font-semibold text-[#e8ecef] leading-snug max-w-[20ch]">
+                  {cs.title}
                 </h3>
-                <p className="text-sm font-medium text-[#0D766E] mt-1">
-                  {selectedProject.subtitle}
-                </p>
-                <p className="mt-3 text-sm text-[#4B5563] leading-relaxed">
-                  {selectedProject.longDescription}
-                </p>
+                <div className="mt-4 font-mono text-[#e3a857] text-2xl font-medium">
+                  {cs.impactNum}
+                </div>
+                <div className="text-[0.83rem] text-[#6b7683] mt-0.5">
+                  {cs.impactLabel}
+                </div>
               </div>
 
-              {/* Key SDET Contributions */}
-              <div className="bg-white rounded-xl border border-[#E5E7EB] p-5">
-                <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#059669]" />
-                  Lead SDET Engineering Contributions
-                </h4>
-                <ul className="space-y-2.5">
-                  {selectedProject.keyContributions.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-xs text-[#374151] leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0D766E] mt-1.5 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* AI Testing Focus if applicable */}
-              {selectedProject.aiTestingFocus && (
-                <div className="bg-[#F0FDFA] rounded-xl border border-[#99F6E4] p-5">
-                  <h4 className="text-xs font-bold text-[#0F766E] uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-[#0D766E]" />
-                    GenAI Testing & Response Validation Dimensions
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {selectedProject.aiTestingFocus.map((focus, idx) => (
-                      <div key={idx} className="bg-white/80 p-2.5 rounded-lg border border-[#CCFBF1] text-xs text-[#134E4A] flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#0D766E] mt-0.5 shrink-0" />
-                        <span className="font-medium">{focus}</span>
-                      </div>
-                    ))}
+              {/* Right Problem, Approach, Impact */}
+              <div className="space-y-4">
+                <div>
+                  <div className="text-[0.76rem] text-[#6b7683] font-mono mb-1.5 uppercase tracking-wider">
+                    Problem
                   </div>
+                  <p className="m-0 text-[#9ba7b4] text-[0.96rem] leading-relaxed max-w-[66ch]">
+                    {cs.problem}
+                  </p>
                 </div>
-              )}
 
-              {/* Architecture & Stack */}
-              <div>
-                <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider mb-2.5">
-                  Architecture & Implementation Breakdown
-                </h4>
-                <div className="space-y-1.5 text-xs text-[#4B5563]">
-                  {selectedProject.architecture.map((arch, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <span className="text-[#0D766E] font-mono text-xs">→</span>
-                      <span>{arch}</span>
-                    </div>
-                  ))}
+                <div>
+                  <div className="text-[0.76rem] text-[#6b7683] font-mono mb-1.5 uppercase tracking-wider">
+                    Approach
+                  </div>
+                  <p className="m-0 text-[#9ba7b4] text-[0.96rem] leading-relaxed max-w-[66ch]">
+                    {cs.approach}
+                  </p>
+                </div>
+
+                <div>
+                  <div className="text-[0.76rem] text-[#6b7683] font-mono mb-1.5 uppercase tracking-wider">
+                    Impact
+                  </div>
+                  <p className="m-0 text-[#9ba7b4] text-[0.96rem] leading-relaxed max-w-[66ch]">
+                    {cs.impact}
+                  </p>
                 </div>
               </div>
-
             </div>
-
-            {/* Right Column: Metrics, Stack Pills & Live CTA */}
-            <div className="lg:col-span-4 space-y-5">
-              
-              {/* Quantifiable Metrics Card */}
-              <div className="bg-white rounded-xl border border-[#E5E7EB] p-5">
-                <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <Activity className="w-4 h-4 text-[#0D766E]" />
-                  Verified Project Metrics
-                </h4>
-                <div className="grid grid-cols-2 gap-3">
-                  {selectedProject.metrics.map((m, idx) => (
-                    <div key={idx} className="bg-[#F9FAFB] p-3 rounded-lg border border-[#F3F4F6]">
-                      <div className="text-xs text-[#6B7280] font-medium">{m.label}</div>
-                      <div className="text-lg sm:text-xl font-extrabold text-[#0D766E] mt-0.5">{m.value}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Technologies Tag Cloud */}
-              <div className="bg-white rounded-xl border border-[#E5E7EB] p-5">
-                <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                  <Cpu className="w-4 h-4 text-[#4B5563]" />
-                  Technology Stack
-                </h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {selectedProject.technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-[#F3F4F6] text-[#374151] border border-[#E5E7EB]"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Interactive Test Simulation Prompt */}
-              <div className="bg-gradient-to-br from-[#0F766E] to-[#115E59] rounded-xl p-5 text-white shadow-xs">
-                <div className="flex items-center gap-2 mb-2">
-                  <Terminal className="w-4 h-4 text-[#99F6E4]" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">
-                    Interactive Demo Available
-                  </span>
-                </div>
-                <h4 className="text-sm font-bold text-white">
-                  See the OneDesk AI Test Harness in Action
-                </h4>
-                <p className="mt-1 text-xs text-teal-100 leading-relaxed">
-                  Run simulated RAG evaluation assertions and containerized pgvector tests right on this page.
-                </p>
-                <a
-                  href="#test-demo"
-                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold bg-white text-[#0F766E] hover:bg-teal-50 px-3.5 py-2 rounded-lg transition-colors"
-                >
-                  <span>Launch Live Test Runner</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
-            </div>
-
-          </div>
-
+          ))}
         </div>
 
       </div>

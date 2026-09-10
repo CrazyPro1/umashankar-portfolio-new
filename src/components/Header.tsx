@@ -1,184 +1,219 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Menu, 
-  X, 
-  FileText, 
-  Download,
-  Mail,
-  ChevronRight
-} from 'lucide-react';
+import { Menu, X, Download, FileText, MapPin, Camera, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
 interface HeaderProps {
   onOpenResume: () => void;
   onPrintResume: () => void;
+  onOpenPhotoLocationModal: () => void;
+  currentLocation: string;
+  profilePicture: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
   onOpenResume, 
-  onPrintResume
+  onPrintResume,
+  onOpenPhotoLocationModal,
+  currentLocation,
+  profilePicture,
 }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('top');
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const sections = ['top', 'about', 'genai', 'experience', 'skills', 'projects', 'contact'];
+      const scrollPosition = window.scrollY + 120;
+
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'OneDesk AI & Projects', href: '#projects' },
-    { label: 'Skills Matrix', href: '#skills' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About', href: '#about', id: 'about' },
+    { label: 'GenAI Testing', href: '#genai', id: 'genai' },
+    { label: 'Experience', href: '#experience', id: 'experience' },
+    { label: 'Skills', href: '#skills', id: 'skills' },
+    { label: 'Case Studies', href: '#projects', id: 'projects' },
+    { label: 'Contact', href: '#contact', id: 'contact' },
   ];
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 no-print ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md border-b border-[#E2E8F0] py-3 shadow-xs' 
-          : 'bg-[#F8FAFC]/90 backdrop-blur-sm py-4'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Left: Name & Target Title */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0F172A] to-[#0D766E] text-white flex items-center justify-center font-black text-sm shadow-xs group-hover:scale-105 transition-transform">
-            UP
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-[#0F172A] text-base tracking-tight">
+    <header className="sticky top-0 z-50 bg-[#12171f]/92 backdrop-blur-md border-b border-[rgba(232,236,239,0.12)] no-print">
+      <nav className="max-w-[1120px] mx-auto px-4 sm:px-8 h-[70px] flex items-center justify-between">
+        
+        {/* Brand with photo avatar & designation differentiation */}
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onOpenPhotoLocationModal}
+            className="relative group w-10 h-10 rounded-full overflow-hidden border border-[#b98a46] shrink-0 bg-[#1b222c] cursor-pointer focus:outline-hidden"
+            title="Click to change profile picture or update location"
+            aria-label="Update profile picture or location"
+          >
+            <img
+              src={profilePicture}
+              alt="Umashankar Pandey"
+              className="w-full h-full object-cover object-center"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+              <Camera className="w-3.5 h-3.5 text-[#e3a857]" />
+            </div>
+          </button>
+
+          <a href="#top" className="flex flex-col group text-left">
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-semibold text-[0.98rem] sm:text-[1.05rem] tracking-tight text-[#e8ecef] group-hover:text-[#e3a857] transition-colors">
                 {PERSONAL_INFO.name}
               </span>
-              <span className="inline-flex items-center gap-1 text-[11px] font-semibold bg-[#ECFDF5] text-[#065F46] px-2 py-0.5 rounded-full border border-[#A7F3D0]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
-                Lead SDET
+              <span className="text-[#e3a857] font-mono text-[0.85rem]">·sdet</span>
+            </div>
+            
+            {/* Clear Role Differentiation: Current vs Looking For */}
+            <div className="flex items-center gap-1.5 text-[0.7rem] sm:text-[0.74rem] font-mono leading-none mt-0.5">
+              <span className="text-[#9ba7b4]">Current:</span>
+              <span className="text-[#e8ecef] font-semibold">{PERSONAL_INFO.currentDesignation}</span>
+              <span className="text-[#e3a857]">➔</span>
+              <span className="text-[#e3a857] font-semibold bg-[rgba(227,168,87,0.12)] px-1.5 py-0.5 rounded-[2px] border border-[#b98a46]/40">
+                Target: {PERSONAL_INFO.targetTitle}
               </span>
             </div>
-            <p className="text-xs text-[#64748B]">
-              5+ Years Exp • Mentored 4 Eng • QA Release Sign-Off
-            </p>
-          </div>
-        </a>
-
-        {/* Center: Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-xs font-semibold text-[#475569] hover:text-[#0D766E] transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Right: Action Buttons */}
-        <div className="hidden sm:flex items-center gap-2.5">
-          {/* Download PDF Button */}
-          <button
-            id="header-download-pdf-btn"
-            onClick={onPrintResume}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-[#0D766E] hover:bg-[#0F766E] px-3.5 py-2 rounded-lg transition-all shadow-xs"
-            title="Download 2-Page ATS Formatted PDF Resume"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span>Download PDF</span>
-          </button>
-
-          {/* View Interactive Resume */}
-          <button
-            id="header-view-resume-btn"
-            onClick={onOpenResume}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0F172A] bg-white hover:bg-[#F8FAFC] border border-[#CBD5E1] px-3 py-2 rounded-lg transition-all shadow-2xs"
-          >
-            <FileText className="w-3.5 h-3.5 text-[#0D766E]" />
-            <span>View Resume</span>
-          </button>
-
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-[#0D766E] hover:text-[#044E48] bg-[#F0FDFA] border border-[#99F6E4] transition-colors"
-            title="Contact Umashankar"
-            aria-label="Contact Umashankar"
-          >
-            <Mail className="w-4 h-4" />
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex md:hidden items-center gap-2">
+        {/* Center Nav Links */}
+        <ul className="hidden lg:flex items-center gap-6 list-none m-0 p-0">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className={`text-[0.9rem] py-1.5 border-b transition-colors whitespace-nowrap ${
+                  activeSection === link.id
+                    ? 'text-[#e8ecef] border-[#e3a857] font-medium'
+                    : 'text-[#9ba7b4] border-transparent hover:text-[#e8ecef]'
+                }`}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Action Buttons: American English (Resume, not résumé) */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={onOpenPhotoLocationModal}
+            className="inline-flex items-center gap-1.5 px-2.5 py-2 text-[0.8rem] text-[#e8ecef] hover:text-[#e3a857] border border-[rgba(232,236,239,0.2)] hover:border-[#b98a46] bg-[#171e27] hover:bg-[rgba(227,168,87,0.1)] rounded-[2px] transition-colors cursor-pointer"
+            title={`Current Location: ${currentLocation} (Click to change or detect)`}
+          >
+            <MapPin className="w-3.5 h-3.5 text-[#e3a857] shrink-0" />
+            <span className="max-w-[140px] truncate">{currentLocation}</span>
+          </button>
+
+          <button
+            onClick={onOpenResume}
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-[0.85rem] font-medium text-[#e8ecef] border border-[rgba(232,236,239,0.22)] rounded-[2px] hover:border-[#e3a857] hover:bg-[rgba(227,168,87,0.1)] transition-colors cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5 text-[#e3a857]" />
+            <span>View Resume</span>
+          </button>
+
           <button
             onClick={onPrintResume}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-[#0D766E] px-3 py-2 rounded-lg shadow-xs min-h-[40px]"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.85rem] font-semibold text-[#181205] bg-[#e3a857] border border-[#e3a857] rounded-[2px] hover:bg-[#eeb86c] transition-colors shadow-2xs cursor-pointer"
+            title="Download PDF format resume"
           >
-            <Download className="w-3.5 h-3.5" />
-            <span>PDF</span>
+            <Download className="w-3.5 h-3.5 text-[#181205]" />
+            <span>Download Resume</span>
+          </button>
+        </div>
+
+        {/* Mobile menu toggle */}
+        <div className="flex sm:hidden items-center gap-2">
+          <button
+            onClick={onPrintResume}
+            className="px-2.5 py-1.5 text-xs font-semibold text-[#181205] bg-[#e3a857] rounded-[2px]"
+          >
+            Resume PDF
           </button>
           
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-lg text-[#64748B] hover:text-[#0F172A] hover:bg-[#F1F5F9] min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
+            className="p-2 text-[#e8ecef] hover:text-[#e3a857] focus:outline-hidden"
             aria-label="Toggle navigation menu"
-            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu Dropdown & Backdrop */}
+      </nav>
+
+      {/* Mobile Menu dropdown */}
       {mobileMenuOpen && (
-        <>
-          <div 
-            className="fixed inset-0 top-[60px] bg-black/40 z-30 md:hidden backdrop-blur-2xs"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          <div className="relative z-40 md:hidden bg-white border-b border-[#E2E8F0] px-4 pt-3 pb-6 space-y-4 shadow-xl">
-            <div className="divide-y divide-[#F1F5F9]">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-semibold text-[#334155] hover:text-[#0D766E] py-3.5 px-2 rounded-lg hover:bg-[#F8FAFC] flex items-center justify-between transition-colors min-h-[44px]"
-                >
-                  <span>{link.label}</span>
-                  <ChevronRight className="w-4 h-4 text-[#94A3B8]" />
-                </a>
-              ))}
+        <div className="sm:hidden border-t border-[rgba(232,236,239,0.12)] bg-[#1b222c] px-6 py-4 flex flex-col space-y-3">
+          {/* Location & Photo Button on Mobile */}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenPhotoLocationModal();
+            }}
+            className="flex items-center justify-between p-2.5 bg-[#12171f] hover:bg-[#1a212b] border border-[rgba(232,236,239,0.18)] hover:border-[#b98a46] rounded-[2px] text-xs text-[#e8ecef] transition-colors cursor-pointer text-left"
+          >
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#e3a857] shrink-0" />
+              <span className="truncate">Location: {currentLocation}</span>
             </div>
+            <span className="text-[10px] text-[#e3a857] font-mono shrink-0 ml-2">Edit / Photo</span>
+          </button>
 
-            <div className="pt-3 border-t border-[#F1F5F9] flex gap-2.5">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onPrintResume();
-                }}
-                className="flex-1 text-center py-3 px-3 rounded-lg text-xs font-bold text-white bg-[#0D766E] shadow-xs flex items-center justify-center gap-1.5 min-h-[44px]"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download PDF</span>
-              </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenResume();
-                }}
-                className="flex-1 text-center py-3 px-3 rounded-lg text-xs font-bold text-[#0F172A] bg-[#F1F5F9] border border-[#CBD5E1] min-h-[44px]"
-              >
-                View Resume
-              </button>
-            </div>
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-[#9ba7b4] hover:text-[#e8ecef] py-2 text-[0.92rem] border-b border-[rgba(232,236,239,0.06)]"
+            >
+              {link.label}
+            </a>
+          ))}
+
+          <div className="pt-2 flex gap-3">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenResume();
+              }}
+              className="flex-1 py-2.5 text-center text-xs font-medium text-[#e8ecef] border border-[rgba(232,236,239,0.22)] rounded-[2px]"
+            >
+              View Resume
+            </button>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onPrintResume();
+              }}
+              className="flex-1 py-2.5 text-center text-xs font-bold text-[#181205] bg-[#e3a857] rounded-[2px]"
+            >
+              Download PDF
+            </button>
           </div>
-        </>
+        </div>
       )}
     </header>
   );

@@ -12,6 +12,7 @@ interface ResumeViewerModalProps {
   onClose: () => void;
   onPrint: () => void;
   onDownloadPdf?: () => void;
+  currentLocation?: string;
 }
 
 export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
@@ -19,6 +20,7 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
   onClose,
   onPrint,
   onDownloadPdf,
+  currentLocation,
 }) => {
   if (!isOpen) return null;
 
@@ -107,10 +109,10 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
                 {PERSONAL_INFO.targetTitle} <span className="text-xs text-[#64748B] font-normal">(Current: {PERSONAL_INFO.currentTitle})</span>
               </p>
               <div className="mt-2 text-xs text-[#475569] flex flex-wrap items-center gap-x-4 gap-y-1">
+                <span>Phone: <strong className="text-[#0F172A]">{PERSONAL_INFO.phone}</strong></span>
                 <span>Email: <strong className="text-[#0F172A]">{PERSONAL_INFO.email}</strong></span>
-                <span>Location: <strong className="text-[#0F172A]">{PERSONAL_INFO.location}</strong></span>
+                <span>Location: <strong className="text-[#0F172A]">{currentLocation || PERSONAL_INFO.location}</strong></span>
                 <span>LinkedIn: <strong className="text-[#0F172A]">{PERSONAL_INFO.linkedin}</strong></span>
-                <span>Portfolio: <strong className="text-[#0D766E]">https://umashankar-sdet.com</strong></span>
               </div>
             </div>
 
@@ -219,13 +221,16 @@ export const ResumeViewerModal: React.FC<ResumeViewerModalProps> = ({
             {/* Education & Certifications */}
             <div>
               <h2 className="text-xs font-bold uppercase tracking-wider text-[#0F172A] border-b border-[#E2E8F0] pb-1 mb-2.5">
-                Education
+                Education & Certifications
               </h2>
               <div className="flex justify-between items-baseline text-xs text-[#334155]">
                 <div>
-                  <strong className="text-[#0F172A]">Bachelor of Technology (B.Tech)</strong> in Computer Science / Information Technology
+                  <strong className="text-[#0F172A]">Bachelor of Technology (B.Tech)</strong> in Computer Science | West Bengal University of Technology (2017 - 2021)
                 </div>
-                <span className="text-[#64748B]">First Class with Distinction</span>
+                <span className="text-[#0D766E] font-semibold">GPA: 8 / 10</span>
+              </div>
+              <div className="mt-1.5 text-xs text-[#475569]">
+                <span>Languages: English (Fluent), Hindi (Fluent), German (Basics)</span>
               </div>
             </div>
 

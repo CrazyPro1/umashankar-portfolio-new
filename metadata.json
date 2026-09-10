@@ -1,6 +1,6 @@
 {
   "name": "Umashankar Pandey - Lead SDET Portfolio",
-  "description": "Executive engineering portfolio and verified credentials of Umashankar Pandey, Lead SDET with 5+ years experience in automation frameworks, team mentorship, and GenAI evaluation.",
-  "requestFramePermissions": [],
+  "description": "Executive engineering portfolio and verified credentials of Umashankar Pandey, Senior SDET at Freecharge (Axis Bank) targeting Lead SDET roles.",
+  "requestFramePermissions": ["geolocation"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

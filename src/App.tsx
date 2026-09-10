@@ -2,22 +2,38 @@ import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
+import { GenAiSection } from './components/GenAiSection';
 import { ExperienceSection } from './components/ExperienceSection';
-import { ProjectsSection } from './components/ProjectsSection';
 import { SkillsMatrix } from './components/SkillsMatrix';
+import { ProjectsSection } from './components/ProjectsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ResumeViewerModal } from './components/ResumeViewerModal';
 import { PrintableResume } from './components/PrintableResume';
+import { PhotoLocationModal } from './components/PhotoLocationModal';
+import { useUserProfile } from './utils/useUserProfile';
 import { downloadResumePdf } from './utils/generateResumePdf';
 
 export default function App() {
   const [resumeModalOpen, setResumeModalOpen] = useState<boolean>(false);
+  const [photoLocationModalOpen, setPhotoLocationModalOpen] = useState<boolean>(false);
 
-  // Directly generates and downloads real 2-page ATS PDF file
+  // User profile picture & live location management
+  const {
+    profilePicture,
+    updateProfilePicture,
+    resetProfilePicture,
+    currentLocation,
+    updateLocation,
+    fetchLiveLocation,
+    isFetchingLocation,
+    locationStatusMessage,
+  } = useUserProfile();
+
+  // Directly generates and downloads real 2-page ATS PDF file with current location
   const handleDownloadPdf = () => {
     try {
-      downloadResumePdf();
+      downloadResumePdf(currentLocation);
     } catch (err) {
       console.error('Direct PDF generation error:', err);
       window.print();
@@ -28,43 +44,54 @@ export default function App() {
     try {
       window.print();
     } catch {
-      downloadResumePdf();
+      downloadResumePdf(currentLocation);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#1E232A] flex flex-col font-sans selection:bg-[#0D766E] selection:text-white">
+    <div className="min-h-screen bg-[#12171f] text-[#e8ecef] flex flex-col font-sans selection:bg-[#e3a857]/20 selection:text-[#e3a857]">
       
-      {/* Top Sticky Header */}
+      {/* Sticky Navigation Header with American English, Photo & Location */}
       <Header
         onOpenResume={() => setResumeModalOpen(true)}
         onPrintResume={handleDownloadPdf}
+        onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
+        currentLocation={currentLocation}
+        profilePicture={profilePicture}
       />
 
       {/* Main Content Sections */}
       <main className="flex-1 no-print">
-        {/* Modern Executive Hero */}
+        {/* Executive Hero with Photo, Designation Distinction, Visible Location */}
         <Hero
           onOpenResume={() => setResumeModalOpen(true)}
           onPrintResume={handleDownloadPdf}
+          onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
+          profilePicture={profilePicture}
+          currentLocation={currentLocation}
         />
 
-        {/* About & Engineering Leadership (4 Engineers Mentored, QA Release Sign-off) */}
+        {/* 01 About & Leadership */}
         <AboutSection />
 
-        {/* Work Experience Timeline (Recruiter High Priority) */}
+        {/* 02 AI & GenAI Testing (OneDesk AI) */}
+        <GenAiSection />
+
+        {/* 03 Experience Changelog */}
         <ExperienceSection />
 
-        {/* Projects (OneDesk AI Spotlight & Enterprise Test Architectures) */}
-        <ProjectsSection />
-
-        {/* Core Technical & Leadership Skills Matrix */}
+        {/* 04 Skills Matrix */}
         <SkillsMatrix />
 
-        {/* Contact & Recruiter Outreach */}
+        {/* 05 Case Studies */}
+        <ProjectsSection />
+
+        {/* 06 Let's Connect & Recruiter Messaging Feature */}
         <ContactSection
           onOpenResume={() => setResumeModalOpen(true)}
           onPrintResume={handleDownloadPdf}
+          currentLocation={currentLocation}
+          onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
         />
       </main>
 
@@ -74,16 +101,31 @@ export default function App() {
         onPrintResume={handleDownloadPdf}
       />
 
-      {/* Interactive Resume Modal with Direct PDF Download */}
+      {/* Interactive Resume Viewer Modal */}
       <ResumeViewerModal
         isOpen={resumeModalOpen}
         onClose={() => setResumeModalOpen(false)}
         onDownloadPdf={handleDownloadPdf}
         onPrint={handlePrintResume}
+        currentLocation={currentLocation}
+      />
+
+      {/* Photo & Location Manager Modal */}
+      <PhotoLocationModal
+        isOpen={photoLocationModalOpen}
+        onClose={() => setPhotoLocationModalOpen(false)}
+        profilePicture={profilePicture}
+        onUpdatePicture={updateProfilePicture}
+        onResetPicture={resetProfilePicture}
+        currentLocation={currentLocation}
+        onUpdateLocation={updateLocation}
+        onFetchLiveLocation={fetchLiveLocation}
+        isFetchingLocation={isFetchingLocation}
+        locationStatusMessage={locationStatusMessage}
       />
 
       {/* Dedicated Print-Only Resume for window.print() */}
-      <PrintableResume />
+      <PrintableResume currentLocation={currentLocation} />
 
     </div>
   );

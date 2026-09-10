@@ -1,186 +1,117 @@
-import React, { useState } from 'react';
-import { 
-  Briefcase, 
-  Calendar, 
-  MapPin, 
-  Users, 
-  CheckCircle2, 
-  ChevronDown, 
-  ChevronUp, 
-  ShieldCheck,
-  Cpu,
-  Layers,
-  Award
-} from 'lucide-react';
-import { EXPERIENCES } from '../data/resumeData';
+import React from 'react';
 
 export const ExperienceSection: React.FC = () => {
-  const [expandedId, setExpandedId] = useState<string>(EXPERIENCES[0].id);
-
-  const toggleExpand = (id: string) => {
-    setExpandedId(expandedId === id ? '' : id);
-  };
-
   return (
-    <section id="experience" className="py-16 bg-white border-b border-[#E5E7EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-20 border-t border-[rgba(232,236,239,0.12)] bg-[#12171f]">
+      <div className="max-w-[1120px] mx-auto px-6 sm:px-8">
         
-        {/* Header */}
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] mb-3">
-            <Briefcase className="w-3.5 h-3.5 text-[#059669]" />
-            Career Trajectory & Track Record
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#111827] tracking-tight">
-            5+ Years of Proven Quality Engineering Leadership
+        {/* Section Head */}
+        <div className="flex items-baseline justify-between gap-6 mb-11 flex-wrap">
+          <h2 className="text-[clamp(1.5rem,2.4vw,2rem)] font-semibold text-[#e8ecef]">
+            Experience
           </h2>
-          <p className="mt-3 text-base text-[#4B5563] leading-relaxed">
-            Progressive growth from individual automation engineer to Lead SDET driving quality strategy, mentoring squads, 
-            and holding sole release sign-off authority across distributed systems.
-          </p>
+          <span className="font-mono text-[#6b7683] text-[0.88rem]">03</span>
         </div>
 
-        {/* Experience Cards */}
-        <div className="mt-10 space-y-6">
-          {EXPERIENCES.map((exp) => {
-            const isExpanded = expandedId === exp.id;
+        {/* Changelog Entries */}
+        <div className="flex flex-col">
+          
+          {/* v2.0 Current - Freecharge */}
+          <div className="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-4 md:gap-8 py-8 first:pt-0 border-t first:border-t-0 border-[rgba(232,236,239,0.12)]">
+            <div className="font-mono text-[#e3a857] text-[1.1rem] font-medium pt-0.5">
+              v2.0
+              <span className="block mt-2 text-[0.7rem] text-[#6b7683] font-sans uppercase tracking-wider">
+                current
+              </span>
+            </div>
+            <div>
+              <div className="flex flex-wrap justify-between items-baseline gap-2 mb-3">
+                <h3 className="text-[1.15rem] font-semibold text-[#e8ecef]">
+                  Senior SDET <span className="text-xs font-normal text-[#e3a857] ml-2 border border-[#b98a46]/60 px-2 py-0.5 rounded-[2px]">Targeting Lead SDET</span>
+                </h3>
+                <span className="text-[#6b7683] text-[0.88rem] font-mono">
+                  Freecharge Payment Technologies by Axis Bank · FEB 2025 — Present
+                </span>
+              </div>
+              <ul className="m-0 pl-5 text-[#9ba7b4] space-y-2 text-[0.98rem] marker:text-[#b98a46]">
+                <li className="max-w-[68ch]">
+                  <strong className="text-[#e8ecef]">Framework Architecture & Speedup:</strong> Refactored API test framework using Java 21, Spring Boot, REST Assured, and applied Factory & Singleton design patterns, boosting execution speed by 30% and cutting flaky tests by 20%.
+                </li>
+                <li className="max-w-[68ch]">
+                  <strong className="text-[#e8ecef]">2FA Security Module QA Leadership:</strong> Commended by Program Manager for leading end-to-end testing of critical 2FA module, delivering 10% ahead of schedule with zero production escapes.
+                </li>
+                <li className="max-w-[68ch]">
+                  <strong className="text-[#e8ecef]">Containerized Cloud Infrastructure:</strong> Containerized test suite with Docker and Kubernetes for parallel execution, cutting runtime by 40% and cloud infrastructure costs on AWS (EC2, EKS) by 15%.
+                </li>
+                <li className="max-w-[68ch]">
+                  <strong className="text-[#e8ecef]">Data-Driven Coverage:</strong> Designed reusable, data-driven API automation with Postman and REST Assured, boosting overall test coverage by 25%.
+                </li>
+                <li className="max-w-[68ch]">
+                  <strong className="text-[#e8ecef]">Real-Time Quality Governance:</strong> Developed automated reporting with Google Meet integrations and email alerts, reducing triage and issue resolution time by 20%.
+                </li>
+              </ul>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {['Java 21', 'Spring Boot', 'REST Assured', 'Docker', 'Kubernetes', 'AWS (EC2, EKS)', 'Postman', 'TestNG', 'Jenkins'].map((tech) => (
+                  <span key={tech} className="text-[11px] font-mono bg-[rgba(232,236,239,0.06)] text-[#cbd5e1] px-2 py-0.5 rounded-[2px] border border-[rgba(232,236,239,0.1)]">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
 
-            return (
-              <div
-                key={exp.id}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                  isExpanded
-                    ? 'bg-[#FBFBF9] border-[#0D766E]/40 shadow-xs'
-                    : 'bg-white border-[#E5E7EB] hover:border-[#D1D5DB]'
-                }`}
-              >
-                {/* Header Row (Clickable) */}
-                <div
-                  onClick={() => toggleExpand(exp.id)}
-                  className="p-6 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 select-none"
-                >
-                  <div className="space-y-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-lg sm:text-xl font-bold text-[#111827]">
-                        {exp.role}
-                      </h3>
-                      {exp.targetRole && (
-                        <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-[#ECFDF5] text-[#065F46] border border-[#A7F3D0]">
-                          Lead Responsibilities
-                        </span>
-                      )}
-                    </div>
-                    
-                    <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-[#4B5563]">
-                      <span className="text-[#0D766E] font-semibold">{exp.company}</span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-[#9CA3AF]" />
-                        {exp.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-[#9CA3AF]" />
-                        {exp.period}
-                      </span>
-                    </div>
+          {/* v1.0 - Nagarro */}
+          <div className="grid grid-cols-1 md:grid-cols-[120px_1fr] gap-4 md:gap-8 py-8 border-t border-[rgba(232,236,239,0.12)]">
+            <div className="font-mono text-[#e3a857] text-[1.1rem] font-medium pt-0.5">
+              v1.0
+            </div>
+            <div>
+              <div className="flex flex-wrap justify-between items-baseline gap-2 mb-3">
+                <h3 className="text-[1.15rem] font-semibold text-[#e8ecef]">
+                  Automation Analyst
+                </h3>
+                <span className="text-[#6b7683] text-[0.88rem] font-mono">
+                  Nagarro Software Pvt. Ltd · SEPT 2021 — FEB 2025 (3.5 Years)
+                </span>
+              </div>
+              <p className="text-xs text-[#9ba7b4] mb-3 italic">
+                Delivered test automation strategy across multiple global enterprise clients in FinTech, Banking, and Data Services domains.
+              </p>
+              <div className="space-y-4">
+                <div className="bg-[rgba(232,236,239,0.03)] p-3.5 rounded border border-[rgba(232,236,239,0.08)]">
+                  <div className="text-xs font-semibold text-[#e3a857] uppercase tracking-wider mb-1">
+                    Client: Saudi Bank (Onsite – FinTech Domain)
                   </div>
-
-                  {/* Right side teaser metrics + expand icon */}
-                  <div className="flex items-center gap-4">
-                    <div className="hidden sm:flex items-center gap-3">
-                      {exp.impactMetrics.slice(0, 2).map((m, idx) => (
-                        <div key={idx} className="text-right">
-                          <div className="text-xs text-[#6B7280]">{m.label}</div>
-                          <div className="text-sm font-extrabold text-[#0D766E]">{m.value}</div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <button
-                      className="p-2 rounded-lg bg-white border border-[#E5E7EB] text-[#4B5563] hover:text-[#111827]"
-                      aria-label="Toggle details"
-                    >
-                      {isExpanded ? (
-                        <ChevronUp className="w-4 h-4" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4" />
-                      )}
-                    </button>
-                  </div>
+                  <ul className="m-0 pl-5 text-[#9ba7b4] space-y-1.5 text-[0.94rem] marker:text-[#b98a46]">
+                    <li className="max-w-[68ch]">Automated core regression suite using Selenium + Cucumber BDD, reducing test cycle time by 30%.</li>
+                    <li className="max-w-[68ch]">Built Page Object Model (POM) frameworks ensuring high reusability and fast team onboarding.</li>
+                    <li className="max-w-[68ch]">Defined 500+ test scenarios and managed 200+ defects via JIRA; integrated Jenkins CI.</li>
+                    <li className="max-w-[68ch]">Containerized Selenium tests with Docker and orchestrated cross-browser runs on BrowserStack.</li>
+                  </ul>
                 </div>
 
-                {/* Expanded Content */}
-                {isExpanded && (
-                  <div className="px-6 pb-6 pt-2 border-t border-[#E5E7EB] space-y-6">
-                    
-                    {/* Impact Metrics Banner */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white p-4 rounded-xl border border-[#E5E7EB]">
-                      {exp.impactMetrics.map((m, idx) => (
-                        <div key={idx}>
-                          <div className="text-xs text-[#6B7280]">{m.label}</div>
-                          <div className="text-lg sm:text-xl font-extrabold text-[#0D766E] mt-0.5">
-                            {m.value}
-                          </div>
-                          <div className="text-[11px] text-[#4B5563] mt-0.5 leading-snug">
-                            {m.description}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Leadership & Ownership Highlights */}
-                    <div>
-                      <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                        <ShieldCheck className="w-4 h-4 text-[#059669]" />
-                        Leadership & Governance Achievements
-                      </h4>
-                      <ul className="space-y-2">
-                        {exp.leadershipHighlights.map((highlight, idx) => (
-                          <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#374151] leading-relaxed">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#059669] mt-2 shrink-0" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Key Technical Responsibilities */}
-                    <div>
-                      <h4 className="text-xs font-bold text-[#111827] uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                        <Cpu className="w-4 h-4 text-[#0D766E]" />
-                        Framework Architecture & Automation Delivery
-                      </h4>
-                      <ul className="space-y-2">
-                        {exp.responsibilities.map((resp, idx) => (
-                          <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#374151] leading-relaxed">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#0D766E] mt-2 shrink-0" />
-                            <span>{resp}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Technologies */}
-                    <div>
-                      <h4 className="text-xs font-bold text-[#6B7280] uppercase tracking-wider mb-2">
-                        Technologies & Tools Utilized
-                      </h4>
-                      <div className="flex flex-wrap gap-1.5">
-                        {exp.technologies.map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-white text-[#374151] border border-[#E5E7EB]"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
+                <div className="bg-[rgba(232,236,239,0.03)] p-3.5 rounded border border-[rgba(232,236,239,0.08)]">
+                  <div className="text-xs font-semibold text-[#e3a857] uppercase tracking-wider mb-1">
+                    Client: LNRS (Data Services Domain)
                   </div>
-                )}
+                  <ul className="m-0 pl-5 text-[#9ba7b4] space-y-1.5 text-[0.94rem] marker:text-[#b98a46]">
+                    <li className="max-w-[68ch]">Developed modular automation frameworks with Playwright and REST Assured for unified web and API testing.</li>
+                    <li className="max-w-[68ch]">Conducted complex SQL-based DB validation and implemented data-driven test suites covering 1,000+ scenarios.</li>
+                    <li className="max-w-[68ch]">Ensured continuous cross-platform coverage across 10+ device and browser environments with Git and Jenkins.</li>
+                  </ul>
+                </div>
               </div>
-            );
-          })}
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {['Selenium', 'Playwright', 'Cucumber BDD', 'REST Assured', 'Java', 'Python', 'Docker', 'Jenkins', 'BrowserStack', 'JIRA', 'SQL'].map((tech) => (
+                  <span key={tech} className="text-[11px] font-mono bg-[rgba(232,236,239,0.06)] text-[#cbd5e1] px-2 py-0.5 rounded-[2px] border border-[rgba(232,236,239,0.1)]">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>

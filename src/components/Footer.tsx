@@ -1,15 +1,5 @@
 import React from 'react';
-import { 
-  Globe, 
-  FileText, 
-  Printer, 
-  Linkedin, 
-  Github, 
-  Mail, 
-  Sparkles,
-  ArrowUp,
-  Download
-} from 'lucide-react';
+import { Download, FileText, ExternalLink, ArrowUp } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
 interface FooterProps {
@@ -26,45 +16,46 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className="bg-white border-t border-[#E5E7EB] py-12 text-[#4B5563] text-xs no-print">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#12171f] border-t border-[rgba(232,236,239,0.12)] py-12 text-[#9ba7b4] text-[0.88rem] no-print">
+      <div className="max-w-[1120px] mx-auto px-6 sm:px-8">
         
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-[#E5E7EB]">
+        {/* Top Info Bar */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-[rgba(232,236,239,0.12)]">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-[#111827] text-base">
+            <div className="flex items-baseline gap-3">
+              <span className="font-semibold text-[#e8ecef] text-base">
                 {PERSONAL_INFO.name}
               </span>
-              <span className="text-[11px] font-semibold bg-[#ECFDF5] text-[#065F46] px-2 py-0.5 rounded-full border border-[#A7F3D0]">
-                {PERSONAL_INFO.targetTitle}
+              <span className="text-[#e3a857] font-mono text-[0.82rem]">
+                Lead SDET / Senior SDET
               </span>
             </div>
-            <p className="text-[#6B7280] text-xs mt-1">
-              5+ Years Experience • Mentored 4 Engineers • QA Release Sign-Off • OneDesk AI & GenAI Testing
+            <p className="text-[#6b7683] text-[0.83rem] mt-1">
+              5+ Years Experience • Mentored 4 Engineers • QA Release Sign-Off • OneDesk AI &amp; GenAI Testing
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0D766E] text-white font-semibold hover:bg-[#115E59] shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.85rem] font-medium text-[#e8ecef] border border-[rgba(232,236,239,0.22)] rounded-[2px] hover:border-[#e3a857] hover:bg-[rgba(227,168,87,0.1)] transition-colors"
             >
-              <FileText className="w-3.5 h-3.5" />
+              <FileText className="w-3.5 h-3.5 text-[#e3a857]" />
               <span>View Resume</span>
             </button>
 
             <button
               onClick={onPrintResume}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#F0FDFA] text-[#0D766E] border border-[#99F6E4] font-semibold hover:bg-[#CCFBF1]"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.85rem] font-semibold text-[#181205] bg-[#e3a857] rounded-[2px] hover:bg-[#eeb86c] transition-colors shadow-2xs"
               title="Directly download 2-page PDF resume"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-[#181205]" />
               <span>Download PDF</span>
             </button>
 
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-lg bg-[#F3F4F6] text-[#4B5563] hover:text-[#111827]"
+              className="p-2 border border-[rgba(232,236,239,0.15)] rounded-[2px] text-[#9ba7b4] hover:text-[#e8ecef] hover:border-[#e3a857] transition-colors"
               title="Back to top"
             >
               <ArrowUp className="w-4 h-4" />
@@ -72,33 +63,26 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#6B7280]">
+        {/* Bottom Bar */}
+        <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[#6b7683] text-[0.82rem]">
           <div>
             © {new Date().getFullYear()} Umashankar Pandey. All rights reserved.
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <a
               href={PERSONAL_INFO.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="hover:text-[#0D766E] transition-colors"
+              className="hover:text-[#e3a857] transition-colors inline-flex items-center gap-1"
             >
-              LinkedIn
+              <span>LinkedIn</span>
+              <ExternalLink className="w-3 h-3 text-[#6b7683]" />
             </a>
             <a
               href={`mailto:${PERSONAL_INFO.email}`}
-              className="hover:text-[#0D766E] transition-colors"
+              className="hover:text-[#e3a857] transition-colors font-mono"
             >
               {PERSONAL_INFO.email}
-            </a>
-            <a 
-              href="https://umashankar-sdet.com" 
-              target="_blank" 
-              rel="noreferrer"
-              className="text-[#0D766E] font-medium hover:underline flex items-center gap-1"
-            >
-              <Globe className="w-3.5 h-3.5" />
-              umashankar-sdet.com
             </a>
           </div>
         </div>

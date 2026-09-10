@@ -5,12 +5,14 @@ import { PERSONAL_INFO, EXPERIENCES, PROJECTS, SKILL_CATEGORIES } from '../data/
  * Generates and directly downloads a polished, ATS-optimized 2-page executive PDF resume.
  * Works seamlessly in all browsers including sandboxed iframes without relying on window.print().
  */
-export function downloadResumePdf(): void {
+export function downloadResumePdf(customLocation?: string): void {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'pt',
     format: 'letter', // 612 x 792 pt
   });
+
+  const effectiveLocation = customLocation || (typeof window !== 'undefined' ? localStorage.getItem('umashankar_current_location') : null) || PERSONAL_INFO.location;
 
   const pageWidth = 612;
   const pageHeight = 792;
@@ -82,11 +84,11 @@ export function downloadResumePdf(): void {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
-  const contactText = `Location: ${PERSONAL_INFO.location}  |  Email: ${PERSONAL_INFO.email}  |  Portfolio: ${PERSONAL_INFO.portfolioDomainIdea}`;
+  const contactText = `Location: ${effectiveLocation}  |  Phone: ${PERSONAL_INFO.phone}  |  Email: ${PERSONAL_INFO.email}`;
   doc.text(contactText, marginX, y);
 
   y += 11;
-  const linksText = `LinkedIn: ${PERSONAL_INFO.linkedin.replace('https://', '')}  |  GitHub: ${PERSONAL_INFO.github.replace('https://', '')}`;
+  const linksText = `LinkedIn: ${PERSONAL_INFO.linkedin.replace('https://', '')}  |  GitHub: ${PERSONAL_INFO.github.replace('https://', '')}  |  Portfolio: ${PERSONAL_INFO.portfolioDomainIdea}`;
   doc.text(linksText, marginX, y);
 
   // Divider
@@ -101,7 +103,7 @@ export function downloadResumePdf(): void {
   doc.setFontSize(8.8);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
   const summaryLines = doc.splitTextToSize(
-    `${PERSONAL_INFO.summary} Trusted with technical ownership across test strategy, automated quality gates, team mentorship (4 engineers), and sole release sign-off governance for 14+ core production microservices.`,
+    `${PERSONAL_INFO.summary}`,
     contentWidth
   );
   summaryLines.forEach((line: string) => {
@@ -115,20 +117,20 @@ export function downloadResumePdf(): void {
   // Competency categories
   const competencies = [
     {
+      cat: 'FinTech & Microservices QA:',
+      val: 'API test framework architecture (Java 21, Spring Boot, REST Assured, Factory/Singleton patterns), 2FA security modules, Docker & Kubernetes parallel execution, AWS (EC2, EKS).',
+    },
+    {
       cat: 'GenAI & AI System Testing:',
-      val: 'Retrieval-Augmented Generation (RAG) Evaluation, Semantic Groundedness, Hallucination Prevention, Prompt Regression Suites, Spring AI, pgvector, Gemini & Qwen LLM Validation, Prompt Injection Defense.',
+      val: 'Retrieval-Augmented Generation (RAG) Evaluation, Semantic Groundedness, Hallucination Prevention, Prompt Regression Suites, Spring AI, pgvector, Gemini & Qwen LLM Validation.',
     },
     {
-      cat: 'Automation Frameworks:',
-      val: 'Playwright (Java/TS), Selenium WebDriver, RestAssured, Testcontainers (ephemeral DBs), JUnit 5, TestNG, PyTest, Page Object Model (POM), Screenplay Pattern, Parallel Dockerized Grid Sharding.',
+      cat: 'Enterprise Automation Frameworks:',
+      val: 'Playwright, Selenium WebDriver, Cucumber BDD, TestNG, WireMock, Postman, BrowserStack cross-browser grid, Page Object Model (POM), data-driven testing (1,000+ scenarios).',
     },
     {
-      cat: 'Technical Leadership:',
-      val: 'Mentored squad of 4 SDETs, Sole QA Release Sign-Off Authority, Automation PR Code Reviews, Shift-Left Quality Strategy, Defect Prevention Architecture, Zero Critical Escapes in 18 Months.',
-    },
-    {
-      cat: 'CI/CD & DevOps Infrastructure:',
-      val: 'Docker, GitHub Actions, Jenkins Pipeline As Code, Linux/Bash, PostgreSQL & SQL, JMeter / k6 Load Testing, Allure Quality Dashboards, SonarQube Quality Gates.',
+      cat: 'CI/CD & Cloud Infrastructure:',
+      val: 'Docker containerization, Kubernetes, Jenkins Pipeline As Code, Git/Bitbucket, AWS cloud infrastructure, JIRA/Zephyr defect governance, automated Meet/email quality alerts.',
     },
   ];
 
@@ -185,13 +187,13 @@ export function downloadResumePdf(): void {
   y += 11;
   // Leadership & Technical bullets for Exp 1
   const exp1Bullets = [
-    'Mentored squad of 4 SDET engineers in test automation architecture, clean code standards, and flaky test remediation.',
-    'Sole QA Release Sign-Off authority for 14+ core production microservices, maintaining zero high-severity production escapes across 18 months.',
-    'Architected automated OneDesk AI GenAI evaluation pipelines using JUnit 5, Spring AI, and Testcontainers to validate RAG retrieval recall (94.2%) and groundedness.',
-    'Designed distributed hybrid test framework with Playwright and RestAssured running on Dockerized grids, slashing regression runtime by 65% (4.2h to 45m).',
-    'Spearheaded automation code review lifecycle, standardizing PR checklists and reducing test suite debt by 40% across engineering repos.',
-    'Engineered automated quality gates in GitHub Actions/Jenkins with automated failure triage, flaky test quarantine, and Slack notification webhooks.',
-    'Implemented API contract testing using RestAssured and JSON Schema validators across 40+ endpoints, catching 90%+ contract breakages pre-merge.',
+    'Refactored API test framework using Java 21, Spring Boot, REST Assured, and applied Factory & Singleton design patterns, improving execution speed by 30% and reducing flaky tests by 20%.',
+    'Designed reusable, data-driven API automation tests using Postman and REST Assured, boosting overall test coverage by 25%.',
+    'Containerized test suite with Docker and Kubernetes for parallel execution, cutting runtime by 40% and infrastructure costs by 15%.',
+    'Developed real-time automated reporting with Google Meet and email alerts, enhancing visibility and reducing issue resolution time by 20%.',
+    'Led end-to-end testing of 2FA module, delivering 10% ahead of schedule with zero production bugs; received commendation from Program Manager.',
+    'Managed AWS cloud deployment (EC2, EKS), optimizing resource utilization and cutting cloud expenses by 10%.',
+    'Contributed actively to Agile ceremonies including sprint planning, daily stand-ups, architectural reviews, and retrospectives.',
   ];
 
   exp1Bullets.forEach((b) => renderBullet(b));
@@ -209,7 +211,7 @@ export function downloadResumePdf(): void {
   doc.setFontSize(8);
   doc.setTextColor(textMuted[0], textMuted[1], textMuted[2]);
   doc.text(`Page 1 of 2  •  ${PERSONAL_INFO.name} — Lead SDET Resume`, marginX, pageHeight - 25);
-  doc.text(`Confidential • Targeting Lead SDET / Staff QA Roles`, marginX + contentWidth - 210, pageHeight - 25);
+  doc.text(`Targeting Lead SDET / QA Architect Roles`, marginX + contentWidth - 190, pageHeight - 25);
 
   // ==========================================
   // PAGE 2
@@ -229,7 +231,7 @@ export function downloadResumePdf(): void {
   doc.line(marginX, y, marginX + contentWidth, y);
   y += 10;
 
-  // Role 2: SDET II
+  // Role 2: Automation Analyst at Nagarro
   const exp2 = EXPERIENCES[1];
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
@@ -250,42 +252,16 @@ export function downloadResumePdf(): void {
 
   y += 11;
   const exp2Bullets = [
-    'Led migration from legacy monolithic Selenium suite to modular Page Object Model + Screenplay pattern framework in Java.',
-    'Onboarded and coached 6 new QA engineers across agile ceremonies, test automation authoring, and CI build troubleshooting.',
-    'Built reusable REST API automation suites using Java, RestAssured, and TestNG covering 350+ data-driven regression scenarios.',
-    'Automated cross-browser test suites across Chrome, Firefox, and Safari using Selenium Grid with dynamic capabilities.',
-    'Reduced test flakiness from 35% to less than 2% by implementing explicit conditional polling and eliminating hard-coded sleeps.',
-    'Authored performance test scripts using JMeter to simulate 5,000+ concurrent user loads during peak promotional events.',
+    'Worked on multiple client projects across FinTech, Banking, and Data Services domains, driving end-to-end automation strategy and Agile delivery.',
+    'Saudi Bank (Onsite – FinTech Domain): Automated regression suite using Selenium + Cucumber BDD, reducing test cycle time by 30%.',
+    'Built modular BDD and Page Object Model (POM) frameworks for enhanced test readability, reusability, and fast onboarding.',
+    'Defined 500+ test scenarios and managed 200+ defects via JIRA; integrated Jenkins CI for continuous test execution.',
+    'Containerized Selenium tests with Docker for cross-platform execution; executed cross-browser suites on BrowserStack.',
+    'LNRS (Data Services Domain): Developed modular automation frameworks using Playwright and REST Assured for web and API testing.',
+    'Conducted SQL-based DB testing and implemented automated data-driven test suites for 1,000+ complex scenarios.',
+    'Ensured continuous test coverage across 10+ device and browser setups with Playwright and version control via Git/Bitbucket.',
   ];
   exp2Bullets.forEach((b) => renderBullet(b));
-
-  // Role 3: Associate QA / SDET I
-  y += 5;
-  const exp3 = EXPERIENCES[2];
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  doc.setTextColor(primaryNavy[0], primaryNavy[1], primaryNavy[2]);
-  doc.text(exp3.role, marginX, y);
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.8);
-  doc.setTextColor(accentTeal[0], accentTeal[1], accentTeal[2]);
-  const exp3Period = `${exp3.period} | ${exp3.location}`;
-  doc.text(exp3Period, marginX + contentWidth - doc.getTextWidth(exp3Period), y);
-
-  y += 11;
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.8);
-  doc.setTextColor(accentTeal[0], accentTeal[1], accentTeal[2]);
-  doc.text(exp3.company, marginX, y);
-
-  y += 11;
-  const exp3Bullets = [
-    'Automated smoke and regression test suites using Java, Selenium WebDriver, and TestNG for web portals.',
-    'Conducted exploratory API testing using Postman, authoring detailed reproduction steps and logs for dev teams.',
-    'Authored comprehensive test plans, traceability matrices, and exploratory charters for cloud-native web portals.',
-  ];
-  exp3Bullets.forEach((b) => renderBullet(b));
 
   // SECTION 4: FEATURED ARCHITECTURAL PROJECTS
   renderSectionHeader('Featured Engineering & GenAI Projects');
@@ -314,7 +290,7 @@ export function downloadResumePdf(): void {
   y += 11;
 
   const proj2Bullets = [
-    'Multi-layer test architecture decoupling API pre-seeding from UI assertions, reducing execution time by 65%.',
+    'Multi-layer test architecture decoupling API pre-seeding from UI assertions, reducing execution time by 40-65%.',
     'Containerized Testcontainers test infrastructure ensuring 100% deterministic test execution on CI runners.',
   ];
   proj2Bullets.forEach((b) => renderBullet(b));
@@ -325,13 +301,13 @@ export function downloadResumePdf(): void {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
   doc.setTextColor(primaryNavy[0], primaryNavy[1], primaryNavy[2]);
-  doc.text('Bachelor of Technology (B.Tech) in Computer Science & Engineering', marginX, y);
+  doc.text('Bachelor of Technology (B.Tech) in Computer Science  |  West Bengal University of Technology (2017 - 2021)', marginX, y);
   y += 11;
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.6);
   doc.setTextColor(textDark[0], textDark[1], textDark[2]);
-  doc.text('Certified Automation Test Architect  •  Advanced Java & Python Test Engineering  •  GenAI Engineering & RAG Evaluation', marginX, y);
+  doc.text('Academic Performance: GPA 8 / 10  •  Certified Automation Test Architect  •  Languages: English (Fluent), Hindi (Fluent), German (Basics)', marginX, y);
   y += 11;
 
   // Page 2 Footer
