@@ -31,22 +31,30 @@ export const PhotoLocationModal: React.FC<PhotoLocationModalProps> = ({
   const [customUrl, setCustomUrl] = useState<string>('');
   const [locationInput, setLocationInput] = useState<string>(currentLocation);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
 
   const showSuccess = (msg: string) => {
+    setErrorMessage(null);
     setSuccessMessage(msg);
     setTimeout(() => setSuccessMessage(null), 3500);
+  };
+
+  const showError = (msg: string) => {
+    setSuccessMessage(null);
+    setErrorMessage(msg);
+    setTimeout(() => setErrorMessage(null), 4000);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Check size limit (e.g., max 5MB)
+    // Check size limit (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('File size exceeds 5MB. Please choose a smaller photo.');
+      showError('File size exceeds 5MB. Please choose a smaller photo.');
       return;
     }
 
@@ -150,6 +158,14 @@ export const PhotoLocationModal: React.FC<PhotoLocationModalProps> = ({
           <div className="mx-6 mt-4 p-3 bg-[rgba(227,168,87,0.12)] border border-[#b98a46] rounded-[2px] text-xs font-mono text-[#e3a857] flex items-center gap-2">
             <Check className="w-4 h-4 shrink-0 text-[#e3a857]" />
             <span>{successMessage || locationStatusMessage}</span>
+          </div>
+        )}
+
+        {/* Error Alert */}
+        {errorMessage && (
+          <div className="mx-6 mt-4 p-3 bg-red-500/10 border border-red-500/40 rounded-[2px] text-xs font-mono text-red-400 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+            <span>{errorMessage}</span>
           </div>
         )}
 

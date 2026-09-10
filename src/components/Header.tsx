@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Download, FileText, MapPin, Camera, Sparkles } from 'lucide-react';
+import { Menu, X, Download, FileText, MapPin, SlidersHorizontal } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
 interface HeaderProps {
@@ -52,56 +52,43 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#12171f]/92 backdrop-blur-md border-b border-[rgba(232,236,239,0.12)] no-print">
-      <nav className="max-w-[1120px] mx-auto px-4 sm:px-8 h-[70px] flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-[#12171f]/95 backdrop-blur-md border-b border-[rgba(232,236,239,0.12)] no-print">
+      <nav className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between gap-4">
         
-        {/* Brand with photo avatar & designation differentiation */}
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={onOpenPhotoLocationModal}
-            className="relative group w-10 h-10 rounded-full overflow-hidden border border-[#b98a46] shrink-0 bg-[#1b222c] cursor-pointer focus:outline-hidden"
-            title="Click to change profile picture or update location"
-            aria-label="Update profile picture or location"
-          >
+        {/* Brand: Clean single-line typography with no wrap or collision */}
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#b98a46] shrink-0 bg-[#1b222c]">
             <img
               src={profilePicture}
               alt="Umashankar Pandey"
               className="w-full h-full object-cover object-center"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-              <Camera className="w-3.5 h-3.5 text-[#e3a857]" />
-            </div>
-          </button>
+          </div>
 
           <a href="#top" className="flex flex-col group text-left">
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-semibold text-[0.98rem] sm:text-[1.05rem] tracking-tight text-[#e8ecef] group-hover:text-[#e3a857] transition-colors">
+            <div className="flex items-baseline gap-1.5 whitespace-nowrap">
+              <span className="font-bold text-[0.98rem] sm:text-[1.05rem] tracking-tight text-[#e8ecef] group-hover:text-[#e3a857] transition-colors">
                 {PERSONAL_INFO.name}
               </span>
-              <span className="text-[#e3a857] font-mono text-[0.85rem]">·sdet</span>
+              <span className="text-[#e3a857] font-mono text-[0.8rem]">·sdet</span>
             </div>
             
-            {/* Clear Role Differentiation: Current vs Looking For */}
-            <div className="flex items-center gap-1.5 text-[0.7rem] sm:text-[0.74rem] font-mono leading-none mt-0.5">
-              <span className="text-[#9ba7b4]">Current:</span>
-              <span className="text-[#e8ecef] font-semibold">{PERSONAL_INFO.currentDesignation}</span>
-              <span className="text-[#e3a857]">➔</span>
-              <span className="text-[#e3a857] font-semibold bg-[rgba(227,168,87,0.12)] px-1.5 py-0.5 rounded-[2px] border border-[#b98a46]/40">
-                Target: {PERSONAL_INFO.targetTitle}
-              </span>
+            <div className="text-[0.68rem] sm:text-[0.72rem] font-mono text-[#9ba7b4] whitespace-nowrap leading-none mt-0.5">
+              <span>{PERSONAL_INFO.currentDesignation}</span>
+              <span className="text-[#b98a46] mx-1">·</span>
+              <span className="text-[#e3a857]">Freecharge</span>
             </div>
           </a>
         </div>
 
-        {/* Center Nav Links */}
-        <ul className="hidden lg:flex items-center gap-6 list-none m-0 p-0">
+        {/* Center Nav Links - Spaced cleanly for laptops and desktops */}
+        <ul className="hidden lg:flex items-center gap-4 xl:gap-6 list-none m-0 p-0">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className={`text-[0.9rem] py-1.5 border-b transition-colors whitespace-nowrap ${
+                className={`text-[0.85rem] xl:text-[0.9rem] py-1.5 border-b transition-colors whitespace-nowrap ${
                   activeSection === link.id
                     ? 'text-[#e8ecef] border-[#e3a857] font-medium'
                     : 'text-[#9ba7b4] border-transparent hover:text-[#e8ecef]'
@@ -113,18 +100,8 @@ export const Header: React.FC<HeaderProps> = ({
           ))}
         </ul>
 
-        {/* Action Buttons: American English (Resume, not résumé) */}
-        <div className="hidden sm:flex items-center gap-2.5">
-          <button
-            type="button"
-            onClick={onOpenPhotoLocationModal}
-            className="inline-flex items-center gap-1.5 px-2.5 py-2 text-[0.8rem] text-[#e8ecef] hover:text-[#e3a857] border border-[rgba(232,236,239,0.2)] hover:border-[#b98a46] bg-[#171e27] hover:bg-[rgba(227,168,87,0.1)] rounded-[2px] transition-colors cursor-pointer"
-            title={`Current Location: ${currentLocation} (Click to change or detect)`}
-          >
-            <MapPin className="w-3.5 h-3.5 text-[#e3a857] shrink-0" />
-            <span className="max-w-[140px] truncate">{currentLocation}</span>
-          </button>
-
+        {/* Action Buttons: Clean & Professional (No public edit clutter) */}
+        <div className="hidden sm:flex items-center gap-2.5 shrink-0">
           <button
             onClick={onOpenResume}
             className="inline-flex items-center gap-1.5 px-3 py-2 text-[0.85rem] font-medium text-[#e8ecef] border border-[rgba(232,236,239,0.22)] rounded-[2px] hover:border-[#e3a857] hover:bg-[rgba(227,168,87,0.1)] transition-colors cursor-pointer"
@@ -140,6 +117,17 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Download className="w-3.5 h-3.5 text-[#181205]" />
             <span>Download Resume</span>
+          </button>
+
+          {/* Discreet Owner Settings Button (Only for owner to update photo/location) */}
+          <button
+            type="button"
+            onClick={onOpenPhotoLocationModal}
+            className="p-2 text-[#6b7683] hover:text-[#e3a857] hover:bg-[rgba(227,168,87,0.08)] rounded-[2px] border border-transparent hover:border-[#b98a46]/30 transition-colors cursor-pointer"
+            title="Owner Settings: Customize Photo & Location"
+            aria-label="Owner Settings: Customize Photo & Location"
+          >
+            <SlidersHorizontal className="w-3.5 h-3.5" />
           </button>
         </div>
 
@@ -166,21 +154,11 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Mobile Menu dropdown */}
       {mobileMenuOpen && (
         <div className="sm:hidden border-t border-[rgba(232,236,239,0.12)] bg-[#1b222c] px-6 py-4 flex flex-col space-y-3">
-          {/* Location & Photo Button on Mobile */}
-          <button
-            type="button"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenPhotoLocationModal();
-            }}
-            className="flex items-center justify-between p-2.5 bg-[#12171f] hover:bg-[#1a212b] border border-[rgba(232,236,239,0.18)] hover:border-[#b98a46] rounded-[2px] text-xs text-[#e8ecef] transition-colors cursor-pointer text-left"
-          >
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#e3a857] shrink-0" />
-              <span className="truncate">Location: {currentLocation}</span>
-            </div>
-            <span className="text-[10px] text-[#e3a857] font-mono shrink-0 ml-2">Edit / Photo</span>
-          </button>
+          {/* Location Badge on Mobile (Pristine, non-editable badge) */}
+          <div className="flex items-center gap-2 p-2.5 bg-[#12171f] border border-[rgba(232,236,239,0.15)] rounded-[2px] text-xs text-[#e8ecef]">
+            <MapPin className="w-4 h-4 text-[#e3a857] shrink-0" />
+            <span className="truncate">Location: {currentLocation}</span>
+          </div>
 
           {navLinks.map((link) => (
             <a
@@ -213,6 +191,19 @@ export const Header: React.FC<HeaderProps> = ({
               Download PDF
             </button>
           </div>
+
+          {/* Discreet Owner Link at bottom of mobile menu */}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenPhotoLocationModal();
+            }}
+            className="w-full text-left py-2 px-1 text-xs text-[#6b7683] hover:text-[#e3a857] flex items-center justify-between border-t border-[rgba(232,236,239,0.06)] pt-3 mt-1"
+          >
+            <span>Customize Photo &amp; Location</span>
+            <span className="text-[10px] font-mono text-[#b98a46]">Owner</span>
+          </button>
         </div>
       )}
     </header>

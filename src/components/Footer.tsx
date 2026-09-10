@@ -5,11 +5,13 @@ import { PERSONAL_INFO } from '../data/resumeData';
 interface FooterProps {
   onOpenResume: () => void;
   onPrintResume: () => void;
+  onOpenPhotoLocationModal?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onOpenResume,
   onPrintResume,
+  onOpenPhotoLocationModal,
 }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -65,8 +67,18 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[#6b7683] text-[0.82rem]">
-          <div>
-            © {new Date().getFullYear()} Umashankar Pandey. All rights reserved.
+          <div className="flex items-center gap-3">
+            <span>© {new Date().getFullYear()} Umashankar Pandey. All rights reserved.</span>
+            {onOpenPhotoLocationModal && (
+              <button
+                type="button"
+                onClick={onOpenPhotoLocationModal}
+                className="text-[0.74rem] text-[#475569] hover:text-[#e3a857] transition-colors font-mono cursor-pointer"
+                title="Owner Settings: Customize Photo & Location"
+              >
+                • Owner Settings
+              </button>
+            )}
           </div>
           <div className="flex items-center gap-5">
             <a

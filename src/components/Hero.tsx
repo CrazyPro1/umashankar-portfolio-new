@@ -53,27 +53,15 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </div>
 
-          {/* Prominent Location Display & Change / GPS Button */}
+          {/* Prominent Location Display & Status */}
           <div className="flex items-center gap-2 text-xs">
-            <div 
-              onClick={onOpenPhotoLocationModal}
-              className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#1b222c] border border-[#b98a46]/50 rounded-[2px] text-[#e8ecef] cursor-pointer hover:border-[#e3a857] transition-colors shadow-xs"
-              title="Click to edit or detect live location"
-            >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#1b222c] border border-[rgba(232,236,239,0.16)] rounded-[2px] text-[#e8ecef] shadow-xs">
               <MapPin className="w-3.5 h-3.5 text-[#e3a857] shrink-0" />
               <span className="font-mono text-[#9ba7b4] text-[0.72rem] uppercase">Location:</span>
               <span className="font-semibold text-xs text-[#e8ecef]">{currentLocation}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] ml-1 shrink-0" />
+              <span className="text-[#10b981] text-[0.72rem] font-mono hidden sm:inline">Open to Relocation</span>
             </div>
-
-            <button
-              type="button"
-              onClick={onOpenPhotoLocationModal}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-[#171e27] hover:bg-[rgba(227,168,87,0.15)] border border-[rgba(232,236,239,0.2)] hover:border-[#b98a46] text-[#9ba7b4] hover:text-[#e3a857] rounded-[2px] transition-colors text-xs cursor-pointer"
-              title="Change photo or update location"
-            >
-              <Navigation className="w-3.5 h-3.5 text-[#e3a857]" />
-              <span className="font-mono text-[0.75rem]">Change / Detect</span>
-            </button>
           </div>
 
         </div>
@@ -81,90 +69,46 @@ export const Hero: React.FC<HeroProps> = ({
         {/* Main Hero Body: Picture + Text Intro */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Profile Picture Card & Visible Location */}
-          <div className="lg:col-span-4 flex flex-col items-start sm:items-center lg:items-start">
-            <div className="relative group">
-              {/* Photo Frame with Accent Ring */}
-              <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-[4px] overflow-hidden border-2 border-[#b98a46] shadow-xl bg-[#1b222c] relative">
-                <img
-                  src={profilePicture}
-                  alt={PERSONAL_INFO.name}
-                  className="w-full h-full object-cover object-top"
-                  referrerPolicy="no-referrer"
-                />
-
-                {/* Hover overlay to change picture */}
-                <button
-                  type="button"
-                  onClick={onOpenPhotoLocationModal}
-                  className="absolute inset-0 bg-black/65 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white transition-opacity gap-1.5 cursor-pointer focus:outline-hidden"
-                  title="Click to upload your own picture"
-                >
-                  <Camera className="w-7 h-7 text-[#e3a857]" />
-                  <span className="text-xs font-semibold text-[#e8ecef]">Upload Photo</span>
-                  <span className="text-[10px] text-[#9ba7b4]">Click to browse</span>
-                </button>
-              </div>
-
-              {/* Verified Availability Tag */}
-              <div className="absolute -bottom-3 left-4 right-4 sm:left-6 sm:right-6 bg-[#12171f] border border-[#b98a46] px-3 py-1.5 rounded-[2px] flex items-center justify-center gap-2 shadow-md">
-                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-                <span className="font-mono text-[0.72rem] text-[#e8ecef] font-semibold uppercase tracking-wider">
-                  Available for Lead Roles
-                </span>
-              </div>
+          {/* Profile Picture Card & Visible Location (100% Unobstructed Photo) */}
+          <div className="lg:col-span-4 flex flex-col items-center sm:items-start">
+            
+            {/* Photo Frame: Clean, unobstructed frame with zero badges overlapping it */}
+            <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-[4px] overflow-hidden border-2 border-[#b98a46] shadow-xl bg-[#1b222c]">
+              <img
+                src={profilePicture}
+                alt={PERSONAL_INFO.name}
+                className="w-full h-full object-cover object-top"
+                referrerPolicy="no-referrer"
+              />
             </div>
 
-            {/* Quick Action Buttons: Upload Photo & Location */}
-            <div className="mt-5 flex items-center gap-2">
-              <button
-                type="button"
-                onClick={onOpenPhotoLocationModal}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[rgba(227,168,87,0.12)] hover:bg-[rgba(227,168,87,0.22)] text-[#e3a857] border border-[#b98a46]/50 text-xs rounded-[2px] font-mono cursor-pointer transition-colors shadow-2xs"
-                title="Upload custom profile photo"
-              >
-                <Camera className="w-3.5 h-3.5" />
-                <span>Upload Photo</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={onOpenPhotoLocationModal}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-[#171e27] hover:bg-[#1b222c] text-[#9ba7b4] hover:text-[#e8ecef] border border-[rgba(232,236,239,0.18)] text-xs rounded-[2px] font-mono cursor-pointer transition-colors"
-                title="Update your current location"
-              >
-                <MapPin className="w-3.5 h-3.5 text-[#e3a857]" />
-                <span>Set Location</span>
-              </button>
+            {/* Available for Lead Roles: Sits cleanly BELOW the photo frame */}
+            <div className="mt-3.5 w-48 sm:w-56 bg-[#12171f] border border-[#b98a46] px-3 py-2 rounded-[2px] flex items-center justify-center gap-2 shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse shrink-0" />
+              <span className="font-mono text-[0.72rem] text-[#e8ecef] font-semibold uppercase tracking-wider whitespace-nowrap">
+                Available for Lead Roles
+              </span>
             </div>
 
-            {/* Prominent Dedicated Current Location Card */}
-            <div className="mt-4 w-full max-w-[240px] bg-[#1b222c] border border-[#b98a46]/35 rounded-[3px] p-3 text-left shadow-sm">
-              <div className="flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-[#9ba7b4]">
-                <span className="flex items-center gap-1 text-[#e3a857] font-semibold">
-                  <MapPin className="w-3.5 h-3.5 text-[#e3a857] shrink-0" /> Current Location
-                </span>
-                <button
-                  type="button"
-                  onClick={onOpenPhotoLocationModal}
-                  className="text-[10px] text-[#e3a857] hover:underline cursor-pointer"
-                >
-                  Edit
-                </button>
+            {/* Dedicated Current Location Card */}
+            <div className="mt-3 w-48 sm:w-56 bg-[#1b222c] border border-[rgba(232,236,239,0.14)] rounded-[3px] p-3 text-left shadow-xs">
+              <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-[#e3a857] font-semibold">
+                <MapPin className="w-3.5 h-3.5 text-[#e3a857] shrink-0" />
+                <span>Current Location</span>
               </div>
-              <div className="mt-1 text-sm font-bold text-[#e8ecef] leading-snug">
+              <div className="mt-1 text-[0.88rem] font-bold text-[#e8ecef] leading-snug">
                 {currentLocation}
               </div>
               <div className="mt-1.5 text-[11px] text-[#10b981] flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] shrink-0" />
                 <span>Open to Relocation &amp; Remote</span>
               </div>
             </div>
 
-            {/* Profile Verification Badge */}
-            <div className="mt-3 flex items-center gap-2 text-xs text-[#9ba7b4]">
-              <Sparkles className="w-3.5 h-3.5 text-[#e3a857]" />
-              <span className="text-[0.78rem] font-mono">Senior SDET @ Freecharge · Ex-Nagarro</span>
+            {/* Company Experience Badge */}
+            <div className="mt-3 flex items-center gap-1.5 text-xs text-[#9ba7b4] w-48 sm:w-56">
+              <Sparkles className="w-3.5 h-3.5 text-[#e3a857] shrink-0" />
+              <span className="text-[0.76rem] font-mono leading-tight">Freecharge · Ex-Nagarro</span>
             </div>
           </div>
 

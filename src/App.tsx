@@ -99,6 +99,7 @@ export default function App() {
       <Footer
         onOpenResume={() => setResumeModalOpen(true)}
         onPrintResume={handleDownloadPdf}
+        onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
       />
 
       {/* Interactive Resume Viewer Modal */}

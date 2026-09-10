@@ -146,19 +146,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
               {/* Verified Location */}
               <div className="border-l-2 border-[#b98a46] pl-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-[0.78rem] text-[#6b7683] font-mono uppercase tracking-wider">
-                    Verified Location
-                  </div>
-                  {onOpenPhotoLocationModal && (
-                    <button
-                      type="button"
-                      onClick={onOpenPhotoLocationModal}
-                      className="text-[0.75rem] text-[#e3a857] hover:underline font-mono cursor-pointer"
-                    >
-                      Update / Detect
-                    </button>
-                  )}
+                <div className="text-[0.78rem] text-[#6b7683] font-mono uppercase tracking-wider">
+                  Verified Location
                 </div>
                 <div className="mt-1 text-[#e8ecef] text-[1.02rem] flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-[#e3a857] shrink-0" />
