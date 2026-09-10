@@ -5,7 +5,7 @@ export const PERSONAL_INFO = {
   targetTitle: 'Lead SDET / Senior SDET',
   currentTitle: 'Senior SDET',
   yearsOfExperience: '5+ Years',
-  location: 'Bangalore, India (Open to Remote / Relocation)',
+  location: 'Lucknow, Uttar Pradesh, India (Open to Remote / Relocation)',
   email: 'umashankar.sdet@gmail.com',
   linkedin: 'https://linkedin.com/in/umashankar-pandey-sdet',
   github: 'https://github.com/umashankar-pandey',
@@ -421,7 +421,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 
 export const RESUME_ATS_TEXT = `UMASHANKAR PANDEY
 Lead SDET / Senior SDET
-Email: umashankar.sdet@gmail.com | Portfolio: https://umashankar-sdet.com | Bangalore, India | LinkedIn: linkedin.com/in/umashankar-pandey-sdet
+Email: umashankar.sdet@gmail.com | Portfolio: https://umashankar-sdet.com | Lucknow, Uttar Pradesh, India | LinkedIn: linkedin.com/in/umashankar-pandey-sdet
 
 ================================================================================
 PROFESSIONAL SUMMARY
@@ -484,56 +484,3 @@ EDUCATION & CERTIFICATIONS
 • Bachelor of Technology (B.Tech) in Computer Science & Engineering
 • Certified Automation Architect & Advanced Java / Python Test Engineering
 `;
-
-export const DOMAIN_AND_HOSTING_STEPS = [
-  {
-    stepNumber: 1,
-    title: 'Domain Successfully Purchased: umashankar-sdet.com',
-    description: 'You have registered umashankar-sdet.com on BigRock. This perfectly mirrors your email umashankar.sdet@gmail.com.',
-    recommendedNames: [
-      'umashankar-sdet.com (Purchased & Active on BigRock)',
-    ],
-    registrars: [
-      { name: 'BigRock', note: 'Active registrar for umashankar-sdet.com' },
-    ],
-  },
-  {
-    stepNumber: 2,
-    title: 'Deploy / Host Your Code for Free (100% Free Tier)',
-    description: 'This application is built with modern React + Vite + Tailwind and can be hosted for $0/month with global CDN acceleration and free SSL certificates.',
-    providers: [
-      {
-        name: 'Vercel (Recommended - Fastest)',
-        steps: 'Export to GitHub from AI Studio → Import into vercel.com → Auto-detects Vite → Click Deploy (takes 30 seconds).',
-      },
-      {
-        name: 'Netlify',
-        steps: 'Connect GitHub repository → Build command: `npm run build` → Publish directory: `dist` → Instant live link.',
-      },
-      {
-        name: 'Google Cloud Run',
-        steps: 'Deploy container or export static build.',
-      },
-    ],
-  },
-  {
-    stepNumber: 3,
-    title: 'Configure BigRock DNS for umashankar-sdet.com',
-    description: 'In your BigRock control panel under Manage Orders → DNS Management, add these two standard records:',
-    dnsRecords: [
-      { type: 'CNAME', host: 'www', value: 'cname.vercel-dns.com', ttl: 'Auto / 14400' },
-      { type: 'A Record', host: '@', value: '76.76.21.21', ttl: 'Auto / 14400' },
-    ],
-    note: 'Free SSL (https://umashankar-sdet.com) is automatically provisioned by Vercel within 2-5 minutes.',
-  },
-  {
-    stepNumber: 4,
-    title: 'Share Your Link with Recruiters & Hiring Managers',
-    description: 'Where to place your live link for maximum interview callbacks:',
-    sharingTips: [
-      'Top of your 2-page ATS Resume: "Portfolio & Live Demos: https://umashankar-sdet.com"',
-      'LinkedIn Profile Headline & Featured Section: "Lead SDET | Mentored 4 Eng | GenAI RAG Testing | https://umashankar-sdet.com ↗"',
-      'Job Applications: Enter https://umashankar-sdet.com in the portfolio field to stand out from 99% of applicants.',
-    ],
-  },
-];

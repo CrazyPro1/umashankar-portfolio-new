@@ -7,19 +7,18 @@ import {
   Github, 
   Mail, 
   Sparkles,
-  ArrowUp
+  ArrowUp,
+  Download
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
 interface FooterProps {
   onOpenResume: () => void;
-  onOpenDomainGuide: () => void;
   onPrintResume: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onOpenResume,
-  onOpenDomainGuide,
   onPrintResume,
 }) => {
   const scrollToTop = () => {
@@ -47,24 +46,25 @@ export const Footer: React.FC<FooterProps> = ({
 
           <div className="flex flex-wrap items-center gap-3">
             <button
-              onClick={onOpenDomainGuide}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#F0FDFA] text-[#0F766E] border border-[#99F6E4] font-semibold hover:bg-[#CCFBF1]"
-            >
-              <Globe className="w-3.5 h-3.5" />
-              <span>Own Domain & Hosting Guide</span>
-            </button>
-
-            <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#0D766E] text-white font-semibold hover:bg-[#115E59]"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0D766E] text-white font-semibold hover:bg-[#115E59] shadow-xs"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>View Resume</span>
             </button>
 
             <button
+              onClick={onPrintResume}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#F0FDFA] text-[#0D766E] border border-[#99F6E4] font-semibold hover:bg-[#CCFBF1]"
+              title="Directly download 2-page PDF resume"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download PDF</span>
+            </button>
+
+            <button
               onClick={scrollToTop}
-              className="p-2 rounded-md bg-[#F3F4F6] text-[#4B5563] hover:text-[#111827]"
+              className="p-2 rounded-lg bg-[#F3F4F6] text-[#4B5563] hover:text-[#111827]"
               title="Back to top"
             >
               <ArrowUp className="w-4 h-4" />
@@ -74,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[#6B7280]">
           <div>
-            © {new Date().getFullYear()} Umashankar Pandey. Built with modern React, Vite & Tailwind.
+            © {new Date().getFullYear()} Umashankar Pandey. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
             <a
@@ -91,7 +91,15 @@ export const Footer: React.FC<FooterProps> = ({
             >
               {PERSONAL_INFO.email}
             </a>
-            <span className="text-[#9CA3AF]">Planned Domain: {PERSONAL_INFO.portfolioDomainIdea}</span>
+            <a 
+              href="https://umashankar-sdet.com" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-[#0D766E] font-medium hover:underline flex items-center gap-1"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              umashankar-sdet.com
+            </a>
           </div>
         </div>
 

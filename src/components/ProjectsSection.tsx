@@ -22,8 +22,11 @@ export const ProjectsSection: React.FC = () => {
   const selectedProject = PROJECTS.find((p) => p.id === selectedProjectId) || PROJECTS[0];
 
   return (
-    <section id="projects" className="py-16 bg-white border-b border-[#E5E7EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 bg-gradient-to-b from-white via-[#F8FAFC] to-white border-b border-[#E2E8F0] relative overflow-hidden">
+      {/* Subtle ambient tech background */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-10 w-[450px] h-[300px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="max-w-3xl">

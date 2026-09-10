@@ -15,8 +15,11 @@ import { PERSONAL_INFO } from '../data/resumeData';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="py-16 bg-[#FBFBF9] border-b border-[#E5E7EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 bg-gradient-to-b from-[#F8FAFC] via-white to-[#F8FAFC] border-b border-[#E2E8F0] relative overflow-hidden">
+      {/* Subtle ambient tech glow */}
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl pointer-events-none -mr-20" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -ml-20" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           

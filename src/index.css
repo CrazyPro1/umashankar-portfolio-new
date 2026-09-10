@@ -1,12 +1,97 @@
 @import "tailwindcss";
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
+
   code, pre, .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+}
+
+/* Modern Engineering Subtle Tech Patterns */
+.bg-tech-grid {
+  background-image: 
+    linear-gradient(to right, rgba(13, 118, 110, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 118, 110, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-tech-dots {
+  background-image: radial-gradient(rgba(15, 118, 110, 0.14) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* High-Impact Cyber & Aurora Mesh Grids */
+.bg-grid-mesh-dark {
+  background-size: 44px 44px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+}
+
+.bg-grid-mesh-emerald {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(20, 184, 166, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 184, 166, 0.15) 1px, transparent 1px);
+}
+
+.bg-radial-vignette {
+  mask-image: radial-gradient(circle at 50% 40%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, black 40%, transparent 85%);
+}
+
+/* Ambient Glowing Animations */
+@keyframes orbPulse {
+  0%, 100% {
+    transform: scale(1) translate(0px, 0px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.15) translate(15px, -15px);
+    opacity: 0.85;
+  }
+}
+
+@keyframes orbPulseReverse {
+  0%, 100% {
+    transform: scale(1) translate(0px, 0px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2) translate(-20px, 10px);
+    opacity: 0.8;
+  }
+}
+
+@keyframes haloGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 16px rgba(20, 184, 166, 0.5)) drop-shadow(0 0 35px rgba(13, 148, 136, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 26px rgba(45, 212, 191, 0.8)) drop-shadow(0 0 50px rgba(16, 185, 129, 0.4));
+  }
+}
+
+.animate-orb-pulse {
+  animation: orbPulse 9s ease-in-out infinite;
+}
+
+.animate-orb-pulse-reverse {
+  animation: orbPulseReverse 11s ease-in-out infinite;
+}
+
+.photo-halo-glow {
+  animation: haloGlow 4s ease-in-out infinite;
 }
 
 @media print {
