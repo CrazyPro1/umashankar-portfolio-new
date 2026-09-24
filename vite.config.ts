@@ -149,6 +149,7 @@ RESPONSE GUIDELINES:
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss(), aistudioMediaPlugin(), geminiChatPlugin()],
+    worker: { format: 'es' as const },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

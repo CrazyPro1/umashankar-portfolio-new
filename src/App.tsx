@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
@@ -15,7 +15,10 @@ import { AIChatbotModal } from './components/AIChatbotModal';
 import { useUserProfile } from './utils/useUserProfile';
 import { downloadResumePdf, printResumePdf } from './utils/generateResumePdf';
 
+const CodingPracticeDrawer = lazy(() => import('./components/CodingPracticeDrawer'));
+
 export default function App() {
+  const [practiceOpen, setPracticeOpen] = useState(false);
   const [resumeModalOpen, setResumeModalOpen] = useState<boolean>(false);
   const [photoLocationModalOpen, setPhotoLocationModalOpen] = useState<boolean>(false);
 
@@ -124,6 +127,14 @@ export default function App() {
 
       {/* Dedicated Print-Only Resume for window.print() */}
       <PrintableResume currentLocation={currentLocation} />
+
+      <button onClick={() => setPracticeOpen(true)} aria-haspopup="dialog" aria-expanded={practiceOpen}
+        className="fixed bottom-5 left-4 z-40 rounded-full border border-[#e3a857]/40 bg-[#1b222c] px-4 py-2.5 text-xs font-semibold text-[#e3a857] shadow-lg transition-colors hover:bg-[#29313d] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e3a857] no-print">
+        <span aria-hidden="true">&lt;/&gt; </span>Practice coding
+      </button>
+      {practiceOpen && <Suspense fallback={<div role="status" className="fixed bottom-20 left-4 z-50 rounded-lg bg-[#1b222c] p-3 text-sm">Opening coding practice…</div>}>
+        <CodingPracticeDrawer onClose={() => setPracticeOpen(false)} />
+      </Suspense>}
 
       {/* AI HR & Recruiter Chatbot Assistant */}
       <AIChatbotModal onDownloadPdf={handleDownloadPdf} />
