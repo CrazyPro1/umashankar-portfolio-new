@@ -6,19 +6,38 @@ export const languages: { id: Language; label: string; code: string }[] = [
   { id: 'javascript', label: 'JavaScript', code: 'console.log("Hello, JavaScript!");\n' },
   { id: 'sql', label: 'PostgreSQL', code: "CREATE TABLE practice (id SERIAL PRIMARY KEY, name TEXT);\nINSERT INTO practice (name) VALUES ('Hello, PostgreSQL!');\nSELECT * FROM practice;\n" },
 ];
-export function runCode(language: Language, code: string, stdin: string, output: (text: string) => void, done: () => void) {
+export type RunStatus = 'success' | 'error' | 'timeout' | 'stopped';
+export interface RunResult {
+  status: RunStatus;
+  output: string;
+  elapsedMs: number;
+  executionMs?: number;
+}
+export function matchesExpected(actual: string, expected: string) {
+  const normalize = (value: string) => value.replace(/\r\n/g, '\n').replace(/\n+$/, '');
+  return normalize(actual) === normalize(expected);
+}
+
+export function runCode(language: Language, code: string, stdin: string, output: (text: string) => void, done: (result: RunResult) => void) {
+  const started = performance.now();
   const controller = new AbortController();
   let worker: Worker | undefined;
   let finished = false;
-  const finish = () => {
+  let captured = '';
+  const write = (text: string) => {
+    const chunk = text.slice(0, Math.max(0, 50000 - captured.length));
+    captured += chunk;
+    if (chunk) output(chunk);
+  };
+  const finish = (status: RunStatus, executionMs?: number) => {
     if (finished) return;
     finished = true;
     clearTimeout(timeout);
     controller.abort();
     worker?.terminate();
-    done();
+    done({ status, output: captured, elapsedMs: performance.now() - started, executionMs });
   };
-  const timeout = setTimeout(() => { output('\nExecution timed out after 60 seconds.'); finish(); }, 60000);
+  const timeout = setTimeout(() => { write('\nExecution timed out after 60 seconds.'); finish('timeout'); }, 60000);
   if (language === 'java') {
     void (async () => {
       try {
@@ -28,25 +47,26 @@ export function runCode(language: Language, code: string, stdin: string, output:
         });
         if (!response.ok) throw new Error(`Java compiler unavailable (HTTP ${response.status}). Try again later.`);
         const result = await response.json();
-        if (!finished) {
-          output((result.compiler_message || '') + (result.program_message || '') || `Exited with status ${result.status ?? 'unknown'}.`);
-          if (result.signal) output(`\nStopped: ${result.signal}`);
-        }
-      } catch (error) { if (!finished) output(error instanceof Error ? error.message : 'Java execution failed.'); }
-      finally { finish(); }
+        if (finished) return;
+        write((result.compiler_message || '') + (result.program_message || ''));
+        if (result.signal) write(`\nStopped: ${result.signal}`);
+        finish(String(result.status) === '0' && !result.signal ? 'success' : 'error');
+      } catch (error) {
+        if (!finished) { write(error instanceof Error ? error.message : 'Java execution failed.'); finish('error'); }
+      }
     })();
   } else {
     try {
       worker = new Worker(new URL('./runtime.worker.ts', import.meta.url), { type: 'module' });
       worker.onmessage = ({ data }) => {
         if (finished) return;
-        if (data.type === 'output') output(data.text);
-        if (data.type === 'error') { output('\n' + data.text); finish(); }
-        if (data.type === 'done') finish();
+        if (data.type === 'output') write(data.text);
+        if (data.type === 'error') { write('\n' + data.text); finish('error', data.executionMs); }
+        if (data.type === 'done') finish('success', data.executionMs);
       };
-      worker.onerror = event => { output(`Runtime failed: ${event.message || 'Check your connection and try again.'}`); finish(); };
+      worker.onerror = event => { write(`Runtime failed: ${event.message || 'Check your connection and try again.'}`); finish('error'); };
       worker.postMessage({ language, code, stdin });
-    } catch (error) { output(String(error)); finish(); }
+    } catch (error) { write(String(error)); finish('error'); }
   }
-  return finish;
+  return () => finish('stopped');
 }

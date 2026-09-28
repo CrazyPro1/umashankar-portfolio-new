@@ -1,3 +1,4 @@
+import { ProfileImage } from './ProfileImage';
 import React from 'react';
 import { 
   Download, 
@@ -15,7 +16,6 @@ import { PERSONAL_INFO } from '../data/resumeData';
 interface HeroProps {
   onOpenResume: () => void;
   onPrintResume: () => void;
-  onOpenPhotoLocationModal: () => void;
   profilePicture: string;
   currentLocation: string;
 }
@@ -23,7 +23,6 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ 
   onOpenResume, 
   onPrintResume,
-  onOpenPhotoLocationModal,
   profilePicture,
   currentLocation,
 }) => {
@@ -74,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({
             
             {/* Photo Frame: Clean, unobstructed frame with zero badges overlapping it */}
             <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-[4px] overflow-hidden border-2 border-[#b98a46] shadow-xl bg-[#1b222c]">
-              <img
+              <ProfileImage
                 src={profilePicture}
                 alt={PERSONAL_INFO.name}
                 className="w-full h-full object-cover object-top"

@@ -1,7 +1,9 @@
 self.onmessage = async ({ data: { language, code, stdin } }) => {
   let size = 0;
+  let executionStarted: number | undefined;
+  const elapsed = () => executionStarted === undefined ? undefined : performance.now() - executionStarted;
   const write = (text: string) => {
-    if (size >= 50000) return;
+    if (size + text.length > 50000) throw new Error('Output limit exceeded (50,000 characters).');
     const chunk = text.slice(0, 50000 - size);
     size += chunk.length;
     self.postMessage({ type: 'output', text: chunk });
@@ -14,11 +16,13 @@ self.onmessage = async ({ data: { language, code, stdin } }) => {
       py.setStdin({ stdin: () => lines.shift() ?? null });
       py.setStdout({ batched: s => write(s + '\n') });
       py.setStderr({ batched: s => write(s + '\n') });
+      executionStarted = performance.now();
       await py.runPythonAsync(code);
     } else if (language === 'sql') {
       const { PGlite } = await import('@electric-sql/pglite');
       const db = await PGlite.create();
       try {
+        executionStarted = performance.now();
         for (const result of await db.exec(code)) write(JSON.stringify(result.rows.length ? result.rows : { affectedRows: result.affectedRows ?? 0 }, null, 2) + '\n');
       } finally { await db.close(); }
     } else {
@@ -39,12 +43,13 @@ self.onmessage = async ({ data: { language, code, stdin } }) => {
       const log = (...args: unknown[]) => write(args.map(format).join(' ') + '\n');
       const lines = stdin ? stdin.split('\n') : [];
       const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+      executionStarted = performance.now();
       await new AsyncFunction('console', 'stdin', 'readLine', source)(
         { log, info: log, warn: log, error: log, table: log, debug: log }, stdin, () => lines.shift() ?? null,
       );
     }
-    self.postMessage({ type: 'done' });
+    self.postMessage({ type: 'done', executionMs: elapsed() });
   } catch (error) {
-    self.postMessage({ type: 'error', text: error instanceof Error ? error.message : String(error) });
+    self.postMessage({ type: 'error', executionMs: elapsed(), text: error instanceof Error ? error.message : String(error) });
   }
 };

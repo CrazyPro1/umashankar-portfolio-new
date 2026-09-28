@@ -10,7 +10,6 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ResumeViewerModal } from './components/ResumeViewerModal';
 import { PrintableResume } from './components/PrintableResume';
-import { PhotoLocationModal } from './components/PhotoLocationModal';
 import { AIChatbotModal } from './components/AIChatbotModal';
 import { useUserProfile } from './utils/useUserProfile';
 import { downloadResumePdf, printResumePdf } from './utils/generateResumePdf';
@@ -20,19 +19,9 @@ const CodingPracticeDrawer = lazy(() => import('./components/CodingPracticeDrawe
 export default function App() {
   const [practiceOpen, setPracticeOpen] = useState(false);
   const [resumeModalOpen, setResumeModalOpen] = useState<boolean>(false);
-  const [photoLocationModalOpen, setPhotoLocationModalOpen] = useState<boolean>(false);
 
-  // User profile picture & live location management
-  const {
-    profilePicture,
-    updateProfilePicture,
-    resetProfilePicture,
-    currentLocation,
-    updateLocation,
-    fetchLiveLocation,
-    isFetchingLocation,
-    locationStatusMessage,
-  } = useUserProfile();
+  // Shared profile published through repository write access.
+  const { profilePicture, currentLocation } = useUserProfile();
 
   // Directly generates and downloads real 2-page ATS PDF file with current location
   const handleDownloadPdf = () => {
@@ -55,7 +44,7 @@ export default function App() {
       <Header
         onOpenResume={() => setResumeModalOpen(true)}
         onPrintResume={handleDownloadPdf}
-        onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
+
         currentLocation={currentLocation}
         profilePicture={profilePicture}
       />
@@ -66,7 +55,7 @@ export default function App() {
         <Hero
           onOpenResume={() => setResumeModalOpen(true)}
           onPrintResume={handleDownloadPdf}
-          onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
+
           profilePicture={profilePicture}
           currentLocation={currentLocation}
         />
@@ -91,7 +80,7 @@ export default function App() {
           onOpenResume={() => setResumeModalOpen(true)}
           onPrintResume={handleDownloadPdf}
           currentLocation={currentLocation}
-          onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
+
         />
       </main>
 
@@ -99,7 +88,7 @@ export default function App() {
       <Footer
         onOpenResume={() => setResumeModalOpen(true)}
         onPrintResume={handleDownloadPdf}
-        onOpenPhotoLocationModal={() => setPhotoLocationModalOpen(true)}
+
       />
 
       {/* Interactive Resume Viewer Modal */}
@@ -109,20 +98,6 @@ export default function App() {
         onDownloadPdf={handleDownloadPdf}
         onPrint={handlePrintResume}
         currentLocation={currentLocation}
-      />
-
-      {/* Photo & Location Manager Modal */}
-      <PhotoLocationModal
-        isOpen={photoLocationModalOpen}
-        onClose={() => setPhotoLocationModalOpen(false)}
-        profilePicture={profilePicture}
-        onUpdatePicture={updateProfilePicture}
-        onResetPicture={resetProfilePicture}
-        currentLocation={currentLocation}
-        onUpdateLocation={updateLocation}
-        onFetchLiveLocation={fetchLiveLocation}
-        isFetchingLocation={isFetchingLocation}
-        locationStatusMessage={locationStatusMessage}
       />
 
       {/* Dedicated Print-Only Resume for window.print() */}

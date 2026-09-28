@@ -22,14 +22,12 @@ interface ContactSectionProps {
   onOpenResume: () => void;
   onPrintResume: () => void;
   currentLocation: string;
-  onOpenPhotoLocationModal?: () => void;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
   onOpenResume,
   onPrintResume,
   currentLocation,
-  onOpenPhotoLocationModal,
 }) => {
   const [formData, setFormData] = useState({
     name: '',

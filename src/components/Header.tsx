@@ -1,11 +1,11 @@
+import { ProfileImage } from './ProfileImage';
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Download, FileText, MapPin, SlidersHorizontal } from 'lucide-react';
+import { Menu, X, Download, FileText, MapPin } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/resumeData';
 
 interface HeaderProps {
   onOpenResume: () => void;
   onPrintResume: () => void;
-  onOpenPhotoLocationModal: () => void;
   currentLocation: string;
   profilePicture: string;
 }
@@ -13,7 +13,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ 
   onOpenResume, 
   onPrintResume,
-  onOpenPhotoLocationModal,
   currentLocation,
   profilePicture,
 }) => {
@@ -58,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand: Clean single-line typography with no wrap or collision */}
         <div className="flex items-center gap-3 shrink-0">
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#b98a46] shrink-0 bg-[#1b222c]">
-            <img
+            <ProfileImage
               src={profilePicture}
               alt="Umashankar Pandey"
               className="w-full h-full object-cover object-center"
@@ -119,16 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span>Download Resume</span>
           </button>
 
-          {/* Discreet Owner Settings Button (Only for owner to update photo/location) */}
-          <button
-            type="button"
-            onClick={onOpenPhotoLocationModal}
-            className="p-2 text-[#6b7683] hover:text-[#e3a857] hover:bg-[rgba(227,168,87,0.08)] rounded-[2px] border border-transparent hover:border-[#b98a46]/30 transition-colors cursor-pointer"
-            title="Owner Settings: Customize Photo & Location"
-            aria-label="Owner Settings: Customize Photo & Location"
-          >
-            <SlidersHorizontal className="w-3.5 h-3.5" />
-          </button>
+
         </div>
 
         {/* Mobile menu toggle */}
@@ -192,18 +182,7 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           </div>
 
-          {/* Discreet Owner Link at bottom of mobile menu */}
-          <button
-            type="button"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenPhotoLocationModal();
-            }}
-            className="w-full text-left py-2 px-1 text-xs text-[#6b7683] hover:text-[#e3a857] flex items-center justify-between border-t border-[rgba(232,236,239,0.06)] pt-3 mt-1"
-          >
-            <span>Customize Photo &amp; Location</span>
-            <span className="text-[10px] font-mono text-[#b98a46]">Owner</span>
-          </button>
+
         </div>
       )}
     </header>

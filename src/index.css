@@ -139,3 +139,9 @@
 .practice-dialog[open] { animation: practice-enter 180ms ease-out; }
 @keyframes practice-enter { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @media (prefers-reduced-motion: reduce) { .practice-dialog[open] { animation: none; } }
+.practice-minimized {
+  position: fixed; bottom: 5rem; left: 1rem; z-index: 60;
+  display: flex; align-items: center; max-width: calc(100vw - 2rem);
+  border: 1px solid #e3a85766; border-radius: .75rem;
+  background: #1b222c; color: #e3a857; box-shadow: 0 10px 30px #0006;
+}
