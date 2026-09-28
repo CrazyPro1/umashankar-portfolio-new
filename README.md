@@ -7,13 +7,13 @@ Use Node.js 22 or newer. Run `npm ci`, `npm run dev`, and `npm run build`.
 
 ## Update your public photo (owner only)
 
-Everyone sees `public/profile.png`, initially your CrazyPro1 GitHub avatar.
+Everyone sees `public/profile.jpg`, your selected portrait.
 The stock portrait and browser-local photo overrides are no longer used.
 Visitors have no upload or location-editing controls.
 
 1. Sign in to GitHub as the repository owner.
 2. Open https://github.com/CrazyPro1/umashankar-portfolio-new/upload/main/public
-3. Upload your photo as **profile.png** (export as PNG first, preferably under 2 MB).
+3. Upload your photo as **profile.jpg** (export as JPEG first, preferably under 2 MB).
 4. Commit the replacement and let your hosting service redeploy.
 
 Only accounts with repository write access can publish a replacement. Keep that

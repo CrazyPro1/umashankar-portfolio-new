@@ -30,8 +30,8 @@ export const PERSONAL_INFO = {
   linkedin: 'https://linkedin.com/in/umashankar-pandey-sdet',
   github: 'https://github.com/umashankar-pandey',
   portfolioDomainIdea: 'umashankar-sdet.com',
-  profilePicture: '/profile.png',
-  defaultPhotoUrl: '/profile.png',
+  profilePicture: '/profile.jpg',
+  defaultPhotoUrl: '/profile.jpg',
   summary: `Senior SDET & QA Release Gatekeeper with 5+ years of experience architecting and scaling enterprise test automation frameworks across FinTech, Banking, and Data Services domains. Currently serving as Senior SDET and sole QA Release Sign-Off Authority across 14+ core production microservices at Freecharge Payment Technologies by Axis Bank with zero high-severity escapes over 18+ consecutive months. Proven track record refactoring API architectures using Java 21, Spring Boot, and REST Assured, containerizing test suites with Docker & Kubernetes (cutting CI regression runtime by 40-65%), and engineering GenAI / RAG quality evaluation harnesses with Spring AI and pgvector. Mentored 4+ engineers and actively targeting Lead SDET roles to steer engineering quality strategy and scale automation squads.`,
   coreHighlights: [
     { label: 'Current Company', value: 'Freecharge (Axis Bank)', subtitle: 'Senior SDET · FinTech & 2FA Lead' },

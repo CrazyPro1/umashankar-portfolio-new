@@ -76,7 +76,7 @@ export const Hero: React.FC<HeroProps> = ({
               <ProfileImage
                 src={profilePicture}
                 alt={PERSONAL_INFO.name}
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-center"
                 referrerPolicy="no-referrer"
               />
             </div>
